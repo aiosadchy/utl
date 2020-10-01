@@ -3,7 +3,7 @@
 
 #include "utl/macro.hpp"
 
-#ifdef UTL_DONT_USE_COUNTER
+#if defined(UTL_DONT_USE_COUNTER) || !defined(__COUNTER__)
     #define ANONYMOUS_IDENTIFIER CONCATENATE(_utl_anonymous_, __LINE__)
 #else
     #define ANONYMOUS_IDENTIFIER CONCATENATE(_utl_anonymous_, __COUNTER__)
