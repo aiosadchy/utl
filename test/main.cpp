@@ -2,6 +2,7 @@
 #include <utl/static_block.hpp>
 #include <utl/type_id.hpp>
 #include <iostream>
+#include <utl/storage.hpp>
 
 STATIC_BLOCK {
     std::cout << "static block works" << std::endl;
@@ -20,5 +21,10 @@ int main(int, char **) {
     std::cout << TypeID<void>::get<float>().get_index() << std::endl;
     std::cout << TypeID<void>::get<double>().get_index() << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
+
+    Storage<int> int_storage;
+    new (int_storage.ptr()) int(15);
+    std::cout << int_storage.ref() << std::endl;
+    static_assert(std::is_standard_layout_v<Storage<int>>);
     return 0;
 }

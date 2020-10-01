@@ -11,7 +11,7 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 set(TEST_PROJECT_NAME ${PROJECT_NAME}_test)
 add_executable(${TEST_PROJECT_NAME}
-        test/test_main.cpp
+        test/main.cpp
 )
 target_link_libraries(${TEST_PROJECT_NAME} utl)
 target_compile_options(${TEST_PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
