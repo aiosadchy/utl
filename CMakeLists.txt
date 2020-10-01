@@ -14,3 +14,4 @@ add_executable(${TEST_PROJECT_NAME}
         test/test_main.cpp
 )
 target_link_libraries(${TEST_PROJECT_NAME} utl)
+target_compile_options(${TEST_PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
