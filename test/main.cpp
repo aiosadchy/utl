@@ -3,6 +3,7 @@
 #include <utl/type_id.hpp>
 #include <iostream>
 #include <utl/storage.hpp>
+#include <utl/range.hpp>
 
 STATIC_BLOCK {
     std::cout << "static block works" << std::endl;
@@ -26,5 +27,11 @@ int main(int, char **) {
     new (int_storage.ptr()) int(15);
     std::cout << int_storage.ref() << std::endl;
     static_assert(std::is_standard_layout_v<Storage<int>>);
+
+    for (int i : Range(10)) {
+        std::cout << i << ", ";
+    }
+    std::cout << "that's all" << std::endl;
+
     return 0;
 }
