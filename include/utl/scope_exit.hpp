@@ -4,7 +4,7 @@
 #include <utility>
 #include <utl/anonymous_identifier.hpp>
 
-#define SCOPE_EXIT detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]()
+#define SCOPE_EXIT detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
 
 
 namespace detail {
@@ -12,15 +12,16 @@ namespace detail {
     class ScopeExit {
     public:
         ScopeExit(F &&f)
-                : m_function(std::forward<F>(f)) {
+            : m_function(std::forward<F>(f)) {
+            static_assert(noexcept(f()));
         }
 
-        ~ScopeExit() {
+        ~ScopeExit() noexcept {
             m_function();
         }
 
     private:
-        F m_function;
+        std::remove_reference_t<F> m_function;
 
     };
 
