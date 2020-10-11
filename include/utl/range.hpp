@@ -1,19 +1,25 @@
 #ifndef UTL_RANGE_HPP
 #define UTL_RANGE_HPP
 
+#include "utl/common.hpp"
+
+namespace UTL_NAMESPACE {
+
 template <typename T>
 class Range {
 public:
+    using Value = T;
+
     class Iterator;
 
     class End {
     public:
-        explicit End(T value)
+        explicit End(Value value)
             : m_value(value) {
         }
 
     private:
-        T m_value;
+        Value m_value;
 
         friend class Iterator;
 
@@ -21,12 +27,12 @@ public:
 
     class Iterator {
     public:
-        Iterator(T initial_value, T step)
+        Iterator(Value initial_value, Value step)
             : m_value(initial_value)
             , m_step(step) {
         }
 
-        T operator*() const {
+        Value operator*() const {
             return m_value;
         }
 
@@ -36,23 +42,23 @@ public:
         }
 
         bool operator!=(const End &end) const {
-            if (m_step > T(0)) {
+            if (m_step > Value(0)) {
                 return m_value < end.m_value;
             }
             return m_value > end.m_value;
         }
 
     private:
-        T m_value;
-        T m_step;
+        Value m_value;
+        Value m_step;
 
     };
 
-    explicit Range(T length)
-        : Range(T(0), length, T(1)) {
+    explicit Range(Value length)
+        : Range(Value(0), length, Value(1)) {
     }
 
-    Range(T begin, T end, T step = T(1))
+    Range(Value begin, Value end, Value step = Value(1))
         : m_begin(begin)
         , m_end(end)
         , m_step(step) {
@@ -67,10 +73,12 @@ public:
     }
 
 private:
-    T m_begin;
-    T m_end;
-    T m_step;
+    Value m_begin;
+    Value m_end;
+    Value m_step;
 
 };
+
+} // namespace UTL_NAMESPACE
 
 #endif // UTL_RANGE_HPP

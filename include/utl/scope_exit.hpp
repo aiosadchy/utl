@@ -2,12 +2,17 @@
 #define UTL_SCOPE_EXIT_HPP
 
 #include <utility>
-#include <utl/anonymous_identifier.hpp>
+#include "utl/anonymous_identifier.hpp"
+#include "utl/common.hpp"
 
-#define SCOPE_EXIT detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
+#define UTL_SCOPE_EXIT \
+    UTL_NAMESPACE::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
 
+
+namespace UTL_NAMESPACE {
 
 namespace detail {
+
     template <typename F>
     class ScopeExit {
     public:
@@ -26,5 +31,7 @@ namespace detail {
     };
 
 } // namespace detail
+
+} // namespace UTL_NAMESPACE
 
 #endif // UTL_SCOPE_EXIT_HPP

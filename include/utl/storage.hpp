@@ -2,29 +2,34 @@
 #define UTL_STORAGE_HPP
 
 #include <type_traits>
+#include "utl/common.hpp"
+
+namespace UTL_NAMESPACE {
 
 namespace detail {
     template <typename T>
     class Storage {
     public:
-        T *ptr() {
-            return reinterpret_cast<T *>(m_data);
+        using Type = T;
+
+        Type *ptr() {
+            return reinterpret_cast<Type *>(m_data);
         }
 
-        const T *ptr() const {
-            return reinterpret_cast<const T *>(m_data);
+        const Type *ptr() const {
+            return reinterpret_cast<const Type *>(m_data);
         }
 
-        T &ref() {
+        Type &ref() {
             return *ptr();
         }
 
-        const T &ref() const {
+        const Type &ref() const {
             return *ptr();
         }
 
     private:
-        alignas(T) unsigned char m_data[sizeof(T)];
+        alignas(Type) unsigned char m_data[sizeof(Type)];
 
     };
 
@@ -37,5 +42,7 @@ using Storage = std::enable_if_t<
         && (alignof(T) == alignof(detail::Storage<T>)),
         detail::Storage<T>
 >;
+
+} // namespace UTL_NAMESPACE
 
 #endif // UTL_STORAGE_HPP

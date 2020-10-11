@@ -1,9 +1,16 @@
 #ifndef UTL_TYPE_ID_HPP
 #define UTL_TYPE_ID_HPP
 
-template <typename Family, typename Index = unsigned short int>
+#include "utl/common.hpp"
+
+namespace UTL_NAMESPACE {
+
+template <typename TFamily, typename TIndex = unsigned short int>
 class TypeID {
 public:
+    using Family = TFamily;
+    using Index = TIndex;
+
     TypeID()
         : m_index(Index(0) - Index(1)) {
     }
@@ -28,11 +35,13 @@ private:
 
     Index m_index;
 
-    inline static Index s_family_size = Index(0);
+    inline static Index s_family_size {0};
 
     template <typename T>
-    inline static const Index s_type_index = s_family_size++;
+    inline static const Index s_type_index {s_family_size++};
 
 };
+
+} // namespace UTL_NAMESPACE
 
 #endif // UTL_TYPE_ID_HPP
