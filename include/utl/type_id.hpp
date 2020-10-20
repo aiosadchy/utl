@@ -1,9 +1,7 @@
 #ifndef UTL_TYPE_ID_HPP
 #define UTL_TYPE_ID_HPP
 
-#include "utl/common.hpp"
-
-namespace UTL_NAMESPACE {
+namespace utl {
 
 template <typename TFamily, typename TIndex = unsigned short int>
 class TypeID {
@@ -42,6 +40,6 @@ private:
 
 };
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_TYPE_ID_HPP

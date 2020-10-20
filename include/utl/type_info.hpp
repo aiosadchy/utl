@@ -1,10 +1,9 @@
 #ifndef UTL_TYPE_INFO_HPP
 #define UTL_TYPE_INFO_HPP
 
-#include "utl/common.hpp"
 #include "utl/type.hpp"
 
-namespace UTL_NAMESPACE {
+namespace utl {
 
 template <typename TData>
 class TypeInfo {
@@ -22,6 +21,6 @@ private:
 
 };
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_TYPE_INFO_HPP

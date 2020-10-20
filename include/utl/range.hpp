@@ -1,9 +1,7 @@
 #ifndef UTL_RANGE_HPP
 #define UTL_RANGE_HPP
 
-#include "utl/common.hpp"
-
-namespace UTL_NAMESPACE {
+namespace utl {
 
 template <typename T>
 class Range {
@@ -79,6 +77,6 @@ private:
 
 };
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_RANGE_HPP

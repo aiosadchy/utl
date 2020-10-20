@@ -1,14 +1,12 @@
 #ifndef UTL_TYPE_HPP
 #define UTL_TYPE_HPP
 
-#include "utl/common.hpp"
-
-namespace UTL_NAMESPACE {
+namespace utl {
 
 template <typename T>
 class Type {
 };
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_TYPE_HPP

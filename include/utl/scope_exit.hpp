@@ -3,13 +3,12 @@
 
 #include <utility>
 #include "utl/anonymous_identifier.hpp"
-#include "utl/common.hpp"
 
 #define UTL_SCOPE_EXIT \
-    UTL_NAMESPACE::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
+    utl::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
 
 
-namespace UTL_NAMESPACE {
+namespace utl {
 
 namespace detail {
 
@@ -32,6 +31,6 @@ namespace detail {
 
 } // namespace detail
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_SCOPE_EXIT_HPP

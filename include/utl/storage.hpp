@@ -2,9 +2,8 @@
 #define UTL_STORAGE_HPP
 
 #include <type_traits>
-#include "utl/common.hpp"
 
-namespace UTL_NAMESPACE {
+namespace utl {
 
 namespace detail {
     template <typename T>
@@ -43,6 +42,6 @@ using Storage = std::enable_if_t<
         detail::Storage<T>
 >;
 
-} // namespace UTL_NAMESPACE
+} // namespace utl
 
 #endif // UTL_STORAGE_HPP

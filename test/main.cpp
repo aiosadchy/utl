@@ -8,7 +8,7 @@
 #include <utl/storage.hpp>
 #include <utl/range.hpp>
 
-using namespace UTL_NAMESPACE;
+using namespace utl;
 
 UTL_STATIC_BLOCK {
     std::cout << "static block works" << std::endl;
