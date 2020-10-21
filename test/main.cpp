@@ -14,17 +14,22 @@ UTL_STATIC_BLOCK {
     std::cout << "static block works" << std::endl;
 }
 
-struct S : public TypeInfo<S> {
+struct S : public TypeInfo<const S> {
     template <typename T>
-    explicit S(Type<T>)
+    explicit S(TypeInfo::Initializer<T>)
         : size(sizeof(T))
         , align(alignof(T))
-        , name(typeid(T).name()) {
+        , name(typeid(T).name())
+        , next(s_begin) {
+        s_begin = this;
     }
 
     int size;
     int align;
     std::string name;
+    S *next;
+
+    inline static S *s_begin = nullptr;
 
 };
 
@@ -57,6 +62,10 @@ int main(int, char **) {
     std::cout << s.name << ": " << s.size << ", " << s.align << std::endl;
     s = S::get<S>();
     std::cout << s.name << ": " << s.size << ", " << s.align << std::endl;
+
+    for (S *it = S::s_begin; it != nullptr; it = it->next) {
+        std::cout << it->name << ": " << it->size << ", " << it->align << std::endl;
+    }
 
     return 0;
 }

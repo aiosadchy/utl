@@ -1,8 +1,6 @@
 #ifndef UTL_TYPE_INFO_HPP
 #define UTL_TYPE_INFO_HPP
 
-#include "utl/type.hpp"
-
 namespace utl {
 
 template <typename TData>
@@ -11,13 +9,17 @@ public:
     using Data = TData;
 
     template <typename T>
-    static const Data &get() {
+    class Initializer {
+    };
+
+    template <typename T>
+    static Data &get() {
         return s_type_data<T>;
     }
 
 private:
     template <typename T>
-    inline static const Data s_type_data {Type<T>()};
+    inline static Data s_type_data {Initializer<T>()};
 
 };
 
