@@ -10,6 +10,9 @@ public:
 
     template <typename T>
     class Initializer {
+    public:
+        using Type = T;
+
     };
 
     template <typename T>
