@@ -6,7 +6,7 @@ namespace utl {
 template <
         typename TFamily,
         typename TIndex = unsigned short int,
-        bool LAZY_INITIALIZATION = false
+        bool LAZY_INITIALIZATION = true
 >
 class TypeID {
 public:
@@ -14,7 +14,7 @@ public:
     using Index = TIndex;
 
     TypeID()
-        : m_index(Index(0) - Index(1)) {
+        : m_index(Index{0} - Index{1}) {
     }
 
     Index get_index() const {
@@ -24,28 +24,28 @@ public:
     template <typename T>
     static TypeID get() {
         if constexpr (LAZY_INITIALIZATION) {
-            static const Index type_index = s_family_size++;
-            return TypeID(type_index);
+            static const Index type_index{s_registered_types++};
+            return TypeID{type_index};
         } else {
-            return TypeID(s_type_index<T>);
+            return TypeID{s_type_index<T>};
         }
     }
 
-    static Index get_family_size() {
-        return s_family_size;
+    static Index get_registered_types_count() {
+        return s_registered_types;
     }
 
 private:
     explicit TypeID(Index index)
-        : m_index(index) {
+        : m_index{index} {
     }
 
     Index m_index;
 
-    inline static Index s_family_size {0};
+    inline static Index s_registered_types{0};
 
     template <typename T>
-    inline static const Index s_type_index {s_family_size++};
+    inline static const Index s_type_index{s_registered_types++};
 
 };
 

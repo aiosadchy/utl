@@ -16,7 +16,7 @@ namespace detail {
     class ScopeExit {
     public:
         ScopeExit(F &&f)
-            : m_function(std::forward<F>(f)) {
+            : m_function{std::forward<F>(f)} {
         }
 
         ~ScopeExit() {

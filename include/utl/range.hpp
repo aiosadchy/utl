@@ -13,7 +13,7 @@ public:
     class End {
     public:
         explicit End(Value value)
-            : m_value(value) {
+            : m_value{value} {
         }
 
     private:
@@ -26,8 +26,8 @@ public:
     class Iterator {
     public:
         Iterator(Value initial_value, Value step)
-            : m_value(initial_value)
-            , m_step(step) {
+            : m_value{initial_value}
+            , m_step{step} {
         }
 
         Value operator*() const {
@@ -40,7 +40,7 @@ public:
         }
 
         bool operator!=(const End &end) const {
-            if (m_step > Value(0)) {
+            if (m_step > Value{0}) {
                 return m_value < end.m_value;
             }
             return m_value > end.m_value;
@@ -53,21 +53,21 @@ public:
     };
 
     explicit Range(Value length)
-        : Range(Value(0), length, Value(1)) {
+        : Range(Value{0}, length, Value{1}) {
     }
 
-    Range(Value begin, Value end, Value step = Value(1))
-        : m_begin(begin)
-        , m_end(end)
-        , m_step(step) {
+    Range(Value begin, Value end, Value step = Value{1})
+        : m_begin{begin}
+        , m_end{end}
+        , m_step{step} {
     }
 
     Iterator begin() const {
-        return Iterator(m_begin, m_step);
+        return Iterator{m_begin, m_step};
     }
 
     End end() const {
-        return End(m_end);
+        return End{m_end};
     }
 
 private:

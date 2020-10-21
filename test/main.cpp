@@ -35,7 +35,6 @@ struct S : public TypeInfo<const S> {
 };
 
 int main(int, char **) {
-    std::cout << "Family size: " << TypeID<void>::get_family_size() << std::endl;
     bool test = false;
     std::cout << test << std::endl;
     {
@@ -46,6 +45,7 @@ int main(int, char **) {
     std::cout << TypeID<void>::get<float>().get_index() << std::endl;
     std::cout << TypeID<void>::get<double>().get_index() << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
+    std::cout << "Family size: " << TypeID<void>::get_registered_types_count() << std::endl;
 
     Storage<int> int_storage;
     new (int_storage.ptr()) int(15);
