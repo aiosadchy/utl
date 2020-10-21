@@ -7,6 +7,7 @@
 #include <utl/type_info.hpp>
 #include <utl/storage.hpp>
 #include <utl/range.hpp>
+#include <utl/repeat.hpp>
 
 using namespace utl;
 
@@ -65,6 +66,10 @@ int main(int, char **) {
 
     for (S *it = S::s_begin; it != nullptr; it = it->next) {
         std::cout << it->name << ": " << it->size << ", " << it->align << std::endl;
+    }
+
+    UTL_REPEAT(1 + 2) {
+        std::cout << "Looping..." << std::endl;
     }
 
     return 0;

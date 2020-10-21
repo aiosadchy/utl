@@ -3,7 +3,7 @@
 
 namespace utl {
 
-template <typename TData>
+template <typename TData, bool LAZY_INITIALIZATION = false>
 class TypeInfo {
 public:
     using Data = TData;
@@ -17,7 +17,12 @@ public:
 
     template <typename T>
     static Data &get() {
-        return s_type_data<T>;
+        if constexpr (LAZY_INITIALIZATION) {
+            static Data type_data {Initializer<T>()};
+            return type_data;
+        } else {
+            return s_type_data<T>;
+        }
     }
 
 private:

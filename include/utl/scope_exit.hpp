@@ -5,7 +5,7 @@
 #include "utl/anonymous_identifier.hpp"
 
 #define UTL_SCOPE_EXIT \
-    utl::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]() noexcept
+    utl::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]()
 
 
 namespace utl {
@@ -17,10 +17,9 @@ namespace detail {
     public:
         ScopeExit(F &&f)
             : m_function(std::forward<F>(f)) {
-            static_assert(noexcept(f()));
         }
 
-        ~ScopeExit() noexcept {
+        ~ScopeExit() {
             m_function();
         }
 

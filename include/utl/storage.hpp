@@ -6,6 +6,7 @@
 namespace utl {
 
 namespace detail {
+
     template <typename T>
     class Storage {
     public:
