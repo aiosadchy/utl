@@ -3,7 +3,11 @@
 
 namespace utl {
 
-template <typename TFamily, typename TIndex = unsigned short int>
+template <
+        typename TFamily,
+        typename TIndex = unsigned short int,
+        bool LAZY_INITIALIZATION = false
+>
 class TypeID {
 public:
     using Family = TFamily;
@@ -19,7 +23,12 @@ public:
 
     template <typename T>
     static TypeID get() {
-        return TypeID(s_type_index<T>);
+        if constexpr (LAZY_INITIALIZATION) {
+            static const Index type_index = s_family_size++;
+            return TypeID(type_index);
+        } else {
+            return TypeID(s_type_index<T>);
+        }
     }
 
     static Index get_family_size() {
