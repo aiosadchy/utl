@@ -12,21 +12,21 @@ namespace utl {
 
 namespace detail {
 
-    template <typename F>
-    class ScopeExit {
-    public:
-        ScopeExit(F &&f)
-            : m_function{std::forward<F>(f)} {
-        }
+template <typename F>
+class ScopeExit {
+public:
+    ScopeExit(F &&f)
+        : m_function{std::forward<F>(f)} {
+    }
 
-        ~ScopeExit() {
-            m_function();
-        }
+    ~ScopeExit() {
+        m_function();
+    }
 
-    private:
-        std::remove_reference_t<F> m_function;
+private:
+    std::remove_reference_t<F> m_function;
 
-    };
+};
 
 } // namespace detail
 

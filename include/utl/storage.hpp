@@ -7,31 +7,31 @@ namespace utl {
 
 namespace detail {
 
-    template <typename T>
-    class Storage {
-    public:
-        using Type = T;
+template <typename T>
+class Storage {
+public:
+    using Type = T;
 
-        Type *ptr() {
-            return reinterpret_cast<Type *>(m_data);
-        }
+    Type *ptr() {
+        return reinterpret_cast<Type *>(m_data);
+    }
 
-        const Type *ptr() const {
-            return reinterpret_cast<const Type *>(m_data);
-        }
+    const Type *ptr() const {
+        return reinterpret_cast<const Type *>(m_data);
+    }
 
-        Type &ref() {
-            return *ptr();
-        }
+    Type &ref() {
+        return *ptr();
+    }
 
-        const Type &ref() const {
-            return *ptr();
-        }
+    const Type &ref() const {
+        return *ptr();
+    }
 
-    private:
-        alignas(Type) unsigned char m_data[sizeof(Type)];
+private:
+    alignas(Type) unsigned char m_data[sizeof(Type)];
 
-    };
+};
 
 } // namespace detail
 
