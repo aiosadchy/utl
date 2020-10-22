@@ -9,10 +9,10 @@
     static void function()
 
 
-#define UTL_STATIC_BLOCK                                        \
-    _UTL_STATIC_BLOCK_IMPL(                                     \
-        UTL_CONCATENATE(UTL_ANONYMOUS_IDENTIFIER, _function),   \
-        UTL_CONCATENATE(UTL_ANONYMOUS_IDENTIFIER, _variable)    \
+#define UTL_STATIC_BLOCK                                    \
+    _UTL_STATIC_BLOCK_IMPL(                                 \
+        UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _function),  \
+        UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _variable)   \
     )
 
 #endif // UTL_STATIC_BLOCK_HPP

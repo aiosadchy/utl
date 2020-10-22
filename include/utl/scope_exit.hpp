@@ -2,7 +2,7 @@
 #define UTL_SCOPE_EXIT_HPP
 
 #include <utility>
-#include "utl/anonymous_identifier.hpp"
+#include "utl/unique_identifier.hpp"
 
 #define UTL_SCOPE_EXIT \
     utl::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]()
