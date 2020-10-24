@@ -1,11 +1,11 @@
-#ifndef UTL_SCOPE_EXIT_HPP
-#define UTL_SCOPE_EXIT_HPP
+#ifndef UTL_SCOPE_GUARD_HPP
+#define UTL_SCOPE_GUARD_HPP
 
 #include <utility>
 #include "utl/unique_identifier.hpp"
 
-#define UTL_SCOPE_EXIT \
-    utl::detail::ScopeExit ANONYMOUS_IDENTIFIER = [&]()
+#define UTL_SCOPE_GUARD \
+    utl::detail::ScopeGuard ANONYMOUS_IDENTIFIER = [&]()
 
 
 namespace utl {
@@ -13,13 +13,13 @@ namespace utl {
 namespace detail {
 
 template <typename F>
-class ScopeExit {
+class ScopeGuard {
 public:
-    ScopeExit(F &&f)
+    ScopeGuard(F &&f)
         : m_function{std::forward<F>(f)} {
     }
 
-    ~ScopeExit() {
+    ~ScopeGuard() {
         m_function();
     }
 
@@ -32,4 +32,4 @@ private:
 
 } // namespace utl
 
-#endif // UTL_SCOPE_EXIT_HPP
+#endif // UTL_SCOPE_GUARD_HPP

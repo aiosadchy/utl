@@ -1,7 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include <utl/scope_exit.hpp>
+#include <utl/scope_guard.hpp>
 #include <utl/static_block.hpp>
 #include <utl/type_id.hpp>
 #include <utl/type_info.hpp>
@@ -38,7 +38,7 @@ int main(int, char **) {
     bool test = false;
     std::cout << test << std::endl;
     {
-        UTL_SCOPE_EXIT { test = true; };
+        UTL_SCOPE_GUARD { test = true; };
     }
     std::cout << test << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
