@@ -5,12 +5,10 @@
 #include "utl/unique_identifier.hpp"
 
 #define UTL_SCOPE_GUARD \
-    utl::detail::ScopeGuard ANONYMOUS_IDENTIFIER = [&]()
+    utl::ScopeGuard ANONYMOUS_IDENTIFIER = [&]()
 
 
 namespace utl {
-
-namespace detail {
 
 template <typename F>
 class ScopeGuard {
@@ -27,8 +25,6 @@ private:
     std::remove_reference_t<F> m_function;
 
 };
-
-} // namespace detail
 
 } // namespace utl
 
