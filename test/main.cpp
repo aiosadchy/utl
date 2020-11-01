@@ -1,13 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include <utl/scope_guard.hpp>
-#include <utl/static_block.hpp>
-#include <utl/type_id.hpp>
-#include <utl/type_info.hpp>
-#include <utl/storage.hpp>
-#include <utl/range.hpp>
-#include <utl/repeat.hpp>
+#include <utl/utl.hpp>
 
 using namespace utl;
 
