@@ -1,7 +1,7 @@
 #ifndef UTL_STATIC_BLOCK_HPP
 #define UTL_STATIC_BLOCK_HPP
 
-#include "utl/macro.hpp"
+#include "utl/concatenate.hpp"
 
 #define _UTL_STATIC_BLOCK_IMPL(function, variable)                  \
     static void function();                                         \

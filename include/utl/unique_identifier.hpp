@@ -1,7 +1,7 @@
 #ifndef UTL_UNIQUE_IDENTIFIER_HPP
 #define UTL_UNIQUE_IDENTIFIER_HPP
 
-#include "utl/macro.hpp"
+#include "utl/concatenate.hpp"
 
 #if defined(UTL_DONT_USE_COUNTER_MACRO) || !defined(__COUNTER__)
     #define UTL_UNIQUE_IDENTIFIER \

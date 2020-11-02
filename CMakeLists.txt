@@ -5,13 +5,14 @@ project(utl
         HOMEPAGE_URL    "https://github.com/aiosadchy/utl"
 )
 
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(utl INTERFACE include)
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+set(LIBRARY_NAME ${PROJECT_NAME})
+add_library(${LIBRARY_NAME} INTERFACE)
+target_include_directories(${LIBRARY_NAME} INTERFACE include)
+target_compile_features(${LIBRARY_NAME} INTERFACE cxx_std_17)
 
-set(TEST_PROJECT_NAME ${PROJECT_NAME}_test)
+set(TEST_PROJECT_NAME ${LIBRARY_NAME}_test)
 add_executable(${TEST_PROJECT_NAME}
         test/main.cpp
 )
-target_link_libraries(${TEST_PROJECT_NAME} utl)
+target_link_libraries(${TEST_PROJECT_NAME} ${LIBRARY_NAME})
 target_compile_options(${TEST_PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
