@@ -21,6 +21,14 @@ public:
         return m_index;
     }
 
+    bool operator==(const TypeID &another) const {
+        return m_index == another.m_index;
+    }
+
+    bool operator!=(const TypeID &another) const {
+        return m_index != another.m_index;
+    }
+
     template <typename T>
     static TypeID get() {
         if constexpr (LAZY_INITIALIZATION) {
