@@ -2,12 +2,14 @@
 #define UTL_TYPE_INFO_HPP
 
 #include "utl/type.hpp"
+#include "utl/type_traits.hpp"
 
 namespace utl {
 
 template <
         typename TData,
-        bool LAZY_INITIALIZATION = true
+        bool LAZY_INITIALIZATION = true,
+        template <typename> typename TDecay = type_traits::Identity
 >
 class TypeInfo {
 public:
@@ -18,11 +20,15 @@ public:
 
     template <typename T>
     static Data &get() {
-        if constexpr (LAZY_INITIALIZATION) {
-            static Data type_data{Initializer<T>()};
-            return type_data;
+        if constexpr (type_traits::is_same<T, TDecay<T>>) {
+            if constexpr (LAZY_INITIALIZATION) {
+                static Data type_data{Initializer<T>()};
+                return type_data;
+            } else {
+                return s_type_data<T>;
+            }
         } else {
-            return s_type_data<T>;
+            return get<TDecay<T>>();
         }
     }
 

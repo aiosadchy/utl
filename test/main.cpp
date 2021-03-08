@@ -28,6 +28,8 @@ struct S : public TypeInfo<const S> {
 
 };
 
+using TestTypeID = TypeID<void, int, false, type_traits::Decay>;
+
 int main(int, char **) {
     bool test = false;
     std::cout << test << std::endl;
@@ -35,11 +37,20 @@ int main(int, char **) {
         UTL_SCOPE_GUARD { test = true; };
     }
     std::cout << test << std::endl;
+
+    std::cout << "Simple TypeID:" << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
     std::cout << TypeID<void>::get<float>().get_index() << std::endl;
     std::cout << TypeID<void>::get<double>().get_index() << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
     std::cout << "Family size: " << TypeID<void>::get_registered_types_count() << std::endl;
+
+    std::cout << "TypeID with decay:" << std::endl;
+    std::cout << TestTypeID::get<int>().get_index() << std::endl;
+    std::cout << TestTypeID::get<const int>().get_index() << std::endl;
+    std::cout << TestTypeID::get<double>().get_index() << std::endl;
+    std::cout << TestTypeID::get<volatile int &>().get_index() << std::endl;
+    std::cout << "Family size: " << TestTypeID::get_registered_types_count() << std::endl;
 
     Storage<int> int_storage;
     new (int_storage.ptr()) int(15);
