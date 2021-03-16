@@ -7,10 +7,10 @@ namespace utl {
 
 namespace detail {
 
-template <typename T>
+template <typename TType>
 class Storage {
 public:
-    using Type = T;
+    using Type = TType;
 
     Type *ptr() {
         return reinterpret_cast<Type *>(m_data);
@@ -36,11 +36,11 @@ private:
 } // namespace detail
 
 
-template <typename T>
+template <typename TType>
 using Storage = std::enable_if_t<
-        (sizeof(T) == sizeof(detail::Storage<T>))
-        && (alignof(T) == alignof(detail::Storage<T>)),
-        detail::Storage<T>
+        (sizeof(TType) == sizeof(detail::Storage<TType>))
+        && (alignof(TType) == alignof(detail::Storage<TType>)),
+        detail::Storage<TType>
 >;
 
 } // namespace utl

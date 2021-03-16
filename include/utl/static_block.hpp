@@ -15,4 +15,16 @@
         UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _variable)   \
     )
 
+
+#ifdef UTL_UNSCOPED_MACROS
+
+    #define STATIC_BLOCK                                        \
+        _UTL_STATIC_BLOCK_IMPL(                                 \
+            UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _function),  \
+            UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _variable)   \
+        )
+
+#endif
+
+
 #endif // UTL_STATIC_BLOCK_HPP

@@ -35,8 +35,9 @@ int main(int, char **) {
     std::cout << test << std::endl;
     {
         UTL_SCOPE_GUARD { test = true; };
+        std::cout << "Should be false: " << test << std::endl;
     }
-    std::cout << test << std::endl;
+    std::cout << "Should be true: " << test << std::endl;
 
     std::cout << "Simple TypeID:" << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;

@@ -4,10 +4,6 @@
 #include <utility>
 #include "utl/unique_identifier.hpp"
 
-#define UTL_SCOPE_GUARD \
-    utl::ScopeGuard ANONYMOUS_IDENTIFIER = [&]()
-
-
 namespace utl {
 
 template <typename F>
@@ -27,5 +23,17 @@ private:
 };
 
 } // namespace utl
+
+
+#define UTL_SCOPE_GUARD \
+    utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
+
+
+#ifdef UTL_UNSCOPED_MACROS
+
+    #define SCOPE_GUARD \
+        utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
+
+#endif
 
 #endif // UTL_SCOPE_GUARD_HPP

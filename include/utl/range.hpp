@@ -3,10 +3,10 @@
 
 namespace utl {
 
-template <typename T>
+template <typename TValue>
 class Range {
 public:
-    using Value = T;
+    using Value = TValue;
 
     class Iterator;
 
