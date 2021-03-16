@@ -8,8 +8,8 @@ namespace utl {
 template <
         typename TFamily,
         typename TIndex = unsigned short int,
-        bool LAZY_INITIALIZATION = true,
-        template <typename> typename TDecay = type_traits::Identity
+        template <typename> typename TDecay = utl::type_traits::Identity,
+        bool LAZY_INITIALIZATION = true
 >
 class TypeID {
 public:

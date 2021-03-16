@@ -28,7 +28,7 @@ struct S : public TypeInfo<const S> {
 
 };
 
-using TestTypeID = TypeID<void, int, false, type_traits::Decay>;
+using TestTypeID = TypeID<void, int, type_traits::Decay, false>;
 
 int main(int, char **) {
     bool test = false;
