@@ -2,15 +2,17 @@
 #define UTL_SCOPE_GUARD_HPP
 
 #include <utility>
+
+#include "utl/type_traits.hpp"
 #include "utl/unique_identifier.hpp"
 
 namespace utl {
 
-template <typename F>
+template <typename TFunction>
 class ScopeGuard {
 public:
-    ScopeGuard(F &&f)
-        : m_function{std::forward<F>(f)} {
+    ScopeGuard(TFunction &&f)
+        : m_function{std::forward<TFunction>(f)} {
     }
 
     ~ScopeGuard() {
@@ -18,7 +20,7 @@ public:
     }
 
 private:
-    std::remove_reference_t<F> m_function;
+    type_traits::Decay<TFunction> m_function;
 
 };
 
@@ -26,13 +28,13 @@ private:
 
 
 #define UTL_SCOPE_GUARD \
-    utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
+    [[maybe_unused]] utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
 
 
 #ifdef UTL_UNSCOPED_MACROS
 
     #define SCOPE_GUARD \
-        utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
+        [[maybe_unused]] utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
 
 #endif
 
