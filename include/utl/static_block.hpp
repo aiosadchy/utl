@@ -3,14 +3,14 @@
 
 #include "utl/concatenate.hpp"
 
-#define _UTL_STATIC_BLOCK_IMPL(function, variable)                  \
+#define UTL_STATIC_BLOCK_IMPL(function, variable)                   \
     static void function();                                         \
     [[maybe_unused]] static const auto variable = (function(), 0);  \
     static void function()
 
 
 #define UTL_STATIC_BLOCK                                    \
-    _UTL_STATIC_BLOCK_IMPL(                                 \
+    UTL_STATIC_BLOCK_IMPL(                                  \
         UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _function),  \
         UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _variable)   \
     )
@@ -19,7 +19,7 @@
 #ifdef UTL_UNSCOPED_MACROS
 
     #define STATIC_BLOCK                                        \
-        _UTL_STATIC_BLOCK_IMPL(                                 \
+        UTL_STATIC_BLOCK_IMPL(                                  \
             UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _function),  \
             UTL_CONCATENATE(UTL_UNIQUE_IDENTIFIER, _variable)   \
         )
