@@ -5,24 +5,47 @@ project(utl
         HOMEPAGE_URL    "https://github.com/aiosadchy/utl"
 )
 
+function(msg level)
+    message(${level} "utl: " ${ARGN})
+endfunction()
+
 # utl library
 
-option(UTL_UNSCOPED_MACROS "Define macros without 'UTL' prefix" ON)
+option(
+    UTL_UNSCOPED_MACROS
+    "Define macros without 'UTL' prefix"
+    OFF
+)
 
-set(LIBRARY_NAME utl)
-add_library(${LIBRARY_NAME} INTERFACE)
-target_include_directories(${LIBRARY_NAME} INTERFACE include)
-target_compile_features(${LIBRARY_NAME} INTERFACE cxx_std_17)
+option(
+    UTL_USE_COUNTER_MACRO
+    "Allow using '__COUNTER__' macro in library code"
+    OFF
+)
+
+add_library(utl INTERFACE)
+target_include_directories(utl INTERFACE include)
+target_compile_features(utl INTERFACE cxx_std_17)
+
+set(UTL_COMPILE_DEFINITIONS)
 
 if (UTL_UNSCOPED_MACROS)
-    target_compile_definitions(${LIBRARY_NAME} INTERFACE UTL_UNSCOPED_MACROS)
+    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_UNSCOPED_MACROS)
+    msg(STATUS "define unscoped macros")
 endif()
+
+if (UTL_USE_COUNTER_MACRO)
+    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_USE_COUNTER_MACRO)
+    msg(STATUS "allow using '__COUNTER__' macro in library code")
+endif()
+
+target_compile_definitions(utl INTERFACE ${UTL_COMPILE_DEFINITIONS})
 
 # tests
 
-set(TEST_PROJECT_NAME ${LIBRARY_NAME}_test)
+set(TEST_PROJECT_NAME utl_test)
 add_executable(${TEST_PROJECT_NAME}
         test/main.cpp
 )
-target_link_libraries(${TEST_PROJECT_NAME} ${LIBRARY_NAME})
+target_link_libraries(${TEST_PROJECT_NAME} utl)
 target_compile_options(${TEST_PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
