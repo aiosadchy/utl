@@ -5,10 +5,20 @@
 
 namespace utl {
 
+namespace init {
+
+    enum class TypeInfo {
+        LAZY,
+        STATIC
+    };
+
+} // namespace init
+
+
 template <
         typename TData,
         template <typename> typename TDecay = utl::type_traits::Identity,
-        bool LAZY_INITIALIZATION = true
+        init::TypeInfo V_INIT_MODE = init::TypeInfo::LAZY
 >
 class TypeInfo {
 public:
@@ -20,7 +30,7 @@ public:
     template <typename T>
     static Data &get() {
         if constexpr (type_traits::is_same<T, TDecay<T>>) {
-            if constexpr (LAZY_INITIALIZATION) {
+            if constexpr (V_INIT_MODE == init::TypeInfo::LAZY) {
                 static Data type_data{Initializer<T>()};
                 return type_data;
             } else {

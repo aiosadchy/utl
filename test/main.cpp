@@ -9,7 +9,7 @@ UTL_STATIC_BLOCK {
     std::cout << "static block works" << std::endl;
 }
 
-struct S : public TypeInfo<const S> {
+struct S : public TypeInfo<const S, type_traits::Identity, init::TypeInfo::LAZY> {
     template <typename T>
     explicit S(TypeInfo::Initializer<T>)
         : size(sizeof(T))
@@ -28,16 +28,16 @@ struct S : public TypeInfo<const S> {
 
 };
 
-using TestTypeID = TypeID<void, int, type_traits::Decay, false>;
+using TestTypeID = TypeID<void, int, type_traits::Decay, init::TypeID::STATIC>;
 
 int main(int, char **) {
     bool test = false;
-    std::cout << test << std::endl;
+    std::cout << "Should be false: " << test << std::endl;
     {
         UTL_SCOPE_GUARD { test = true; };
         std::cout << "Should be false: " << test << std::endl;
     }
-    std::cout << "Should be true: " << test << std::endl;
+    std::cout << "Should be true:  " << test << std::endl;
 
     std::cout << "Simple TypeID:" << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;

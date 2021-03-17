@@ -5,11 +5,21 @@
 
 namespace utl {
 
+namespace init {
+
+    enum class TypeID {
+        LAZY,
+        STATIC
+    };
+
+} // namespace init
+
+
 template <
         typename TFamily,
         typename TIndex = unsigned short int,
         template <typename> typename TDecay = utl::type_traits::Identity,
-        bool LAZY_INITIALIZATION = true
+        init::TypeID V_INIT_MODE = init::TypeID::LAZY
 >
 class TypeID {
 public:
@@ -35,7 +45,7 @@ public:
     template <typename T>
     static TypeID get() {
         if constexpr (type_traits::is_same<T, TDecay<T>>) {
-            if constexpr (LAZY_INITIALIZATION) {
+            if constexpr (V_INIT_MODE == init::TypeID::LAZY) {
                 static const Index type_index{s_registered_types++};
                 return TypeID{type_index};
             } else {
