@@ -9,6 +9,8 @@ TEST(non_constructible);
 TEST(non_copyable);
 TEST(range);
 TEST(repeat);
+TEST(scope_guard);
+TEST(static_block);
 
 using namespace utl;
 
@@ -42,6 +44,8 @@ int main(int, char **) {
     RUN_TEST(non_copyable)
     RUN_TEST(range)
     RUN_TEST(repeat)
+    RUN_TEST(scope_guard)
+    RUN_TEST(static_block)
     bool test = false;
     std::cout << "Should be false: " << test << std::endl;
     {

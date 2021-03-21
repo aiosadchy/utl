@@ -49,6 +49,8 @@ add_executable(utl_tests
         test/src/test_non_copyable.cpp
         test/src/test_range.cpp
         test/src/test_repeat.cpp
+        test/src/test_scope_guard.cpp
+        test/src/test_static_block.cpp
         test/src/tests.cpp
 )
 target_include_directories(utl_tests PRIVATE test/include)
