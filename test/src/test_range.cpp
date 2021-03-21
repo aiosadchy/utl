@@ -18,7 +18,7 @@ TEST(range_regular) {
     ASSERT(vec(utl::Range(5)       ) == std::vector{0, 1, 2, 3, 4})
     ASSERT(vec(utl::Range(7, 10)   ) == std::vector{7, 8, 9}      )
     ASSERT(vec(utl::Range(0,  6, 2)) == std::vector{0, 2, 4}      )
-    ASSERT(vec(utl::Range(0,  7, 2)) == std::vector{0, 2, 4, 6}   )
+    ASSERT(vec(utl::Range(0,  7, 2)) == std::vector{0, 2, 4, 8}   )
 }
 
 TEST(range_empty) {
