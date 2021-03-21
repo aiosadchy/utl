@@ -51,7 +51,7 @@ void Test::print_report() {
     }
 
     if (!get_failed_tests().empty()) {
-        std::cerr << "There are failed tests:" << std::endl;
+        std::cerr << "Tests failed:" << std::endl;
         for (const auto &test : get_failed_tests()) {
             std::cerr << "  - " << test << std::endl;
         }

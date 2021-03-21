@@ -38,7 +38,7 @@ TEST(scope_guard_macro) {
     ASSERT(value == 0)
 
     {
-        ASSERT(value == 2)
+        ASSERT(value == 0)
         UTL_SCOPE_GUARD {
             value = 5;
         };

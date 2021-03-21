@@ -45,8 +45,8 @@ private:
 #define ASSERT(...)                                     \
     if (!(__VA_ARGS__)) {                               \
         test_state.fail();                              \
-        std::cerr << "Test " << test_state.get_name()   \
-                  << ", line " << __LINE__              \
+        std::cerr << "Test [" << test_state.get_name()  \
+                  << "], line " << __LINE__             \
                   << ": assertion failed: "             \
                   << #__VA_ARGS__                       \
                   << std::endl;                         \
