@@ -45,8 +45,12 @@ target_compile_definitions(utl INTERFACE ${UTL_COMPILE_DEFINITIONS})
 
 add_executable(utl_tests
         test/src/main.cpp
+        test/src/test_non_constructible.cpp
+        test/src/test_non_copyable.cpp
         test/src/test_range.cpp
-        test/src/tests.cpp)
+        test/src/test_repeat.cpp
+        test/src/tests.cpp
+)
 target_include_directories(utl_tests PRIVATE test/include)
 target_link_libraries(utl_tests PRIVATE utl)
 target_compile_options(utl_tests PRIVATE -Wall -Wextra -pedantic)

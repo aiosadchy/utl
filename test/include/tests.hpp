@@ -37,6 +37,7 @@ private:
 #define ASSERT(...)                             \
     if (!(__VA_ARGS__)) {                       \
         std::cerr << current_test.get_name()    \
+                  << ", line " << __LINE__      \
                   << ": assertion failed: "     \
                   << #__VA_ARGS__               \
                   << std::endl;                 \

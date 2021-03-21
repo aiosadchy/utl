@@ -2,7 +2,7 @@
 #define UTL_UTL_HPP
 
 #include "utl/concatenate.hpp"
-#include "utl/non_constructable.hpp"
+#include "utl/non_constructible.hpp"
 #include "utl/non_copyable.hpp"
 #include "utl/range.hpp"
 #include "utl/repeat.hpp"

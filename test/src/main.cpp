@@ -5,7 +5,10 @@
 
 #include <utl/utl.hpp>
 
+TEST(non_constructible);
+TEST(non_copyable);
 TEST(range);
+TEST(repeat);
 
 using namespace utl;
 
@@ -35,7 +38,10 @@ struct S : public TypeInfo<const S, type_traits::Identity, init::TypeInfo::LAZY>
 using TestTypeID = TypeID<void, int, type_traits::Decay, init::TypeID::STATIC>;
 
 int main(int, char **) {
-    test_range();
+    RUN_TEST(non_constructible)
+    RUN_TEST(non_copyable)
+    RUN_TEST(range)
+    RUN_TEST(repeat)
     bool test = false;
     std::cout << "Should be false: " << test << std::endl;
     {
