@@ -3,7 +3,7 @@
 #include "test.hpp"
 
 
-TEST(repeat_regular) {
+TEST(regular) {
     int i = 0;
     UTL_REPEAT(10) {
         ++i;
@@ -11,7 +11,7 @@ TEST(repeat_regular) {
     ASSERT(i == 10)
 }
 
-TEST(repeat_zero_times) {
+TEST(zero_times) {
     bool value = true;
     UTL_REPEAT(0) {
         value = false;
@@ -19,7 +19,7 @@ TEST(repeat_zero_times) {
     ASSERT(value)
 }
 
-TEST(repeat_negative_counter) {
+TEST(negative_counter) {
     bool value = true;
     UTL_REPEAT(-10) {
         value = false;
@@ -27,8 +27,4 @@ TEST(repeat_negative_counter) {
     ASSERT(value)
 }
 
-TEST(repeat) {
-    RUN_TEST(repeat_regular)
-    RUN_TEST(repeat_zero_times)
-    RUN_TEST(repeat_negative_counter)
-}
+RUN_ALL_TESTS

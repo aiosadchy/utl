@@ -48,8 +48,4 @@ TEST(scope_guard_macro) {
     ASSERT(value == 5)
 }
 
-
-TEST(scope_guard) {
-    RUN_TEST(scope_guard_class)
-    RUN_TEST(scope_guard_macro)
-}
+RUN_ALL_TESTS

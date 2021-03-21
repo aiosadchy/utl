@@ -3,6 +3,4 @@
 #include "test.hpp"
 
 
-TEST(type_info) {
-
-}
+RUN_ALL_TESTS

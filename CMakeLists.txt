@@ -43,21 +43,32 @@ target_compile_definitions(utl INTERFACE ${UTL_COMPILE_DEFINITIONS})
 
 # tests
 
-add_executable(utl_tests
-        test/src/main.cpp
-        test/src/test.cpp
-        test/src/test_non_constructible.cpp
-        test/src/test_non_copyable.cpp
-        test/src/test_range.cpp
-        test/src/test_repeat.cpp
-        test/src/test_scope_guard.cpp
-        test/src/test_static_block.cpp
-        test/src/test_type_id.cpp
-        test/src/test_type_info.cpp
-)
-target_include_directories(utl_tests PRIVATE test/include)
-target_link_libraries(utl_tests PRIVATE utl)
-target_compile_options(utl_tests PRIVATE -Wall -Wextra -pedantic)
-
 enable_testing()
-add_test(utl utl_tests)
+
+set(UTL_TEST_SOURCES
+    test/src/main.cpp
+    test/src/test_non_constructible.cpp
+    test/src/test_non_copyable.cpp
+    test/src/test_range.cpp
+    test/src/test_repeat.cpp
+    test/src/test_scope_guard.cpp
+    test/src/test_static_block.cpp
+    test/src/test_type_id.cpp
+    test/src/test_type_info.cpp
+)
+
+foreach(TEST ${UTL_TEST_SOURCES})
+    get_filename_component(TEST_EXE ${TEST} NAME_WE)
+    add_executable(${TEST_EXE} ${TEST})
+    target_include_directories(${TEST_EXE} PRIVATE test/include)
+    target_link_libraries(${TEST_EXE} PRIVATE utl)
+
+    if(MSVC)
+        target_compile_options(${TEST_EXE} PRIVATE /W4 /WX)
+    else()
+        target_compile_options(${TEST_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
+    endif()
+
+    add_test(${TEST_EXE} ${TEST_EXE})
+endforeach()
+

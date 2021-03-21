@@ -14,3 +14,5 @@ TEST(static_block) {
     ASSERT(value_a == true)
     ASSERT(value_b == false)
 }
+
+RUN_ALL_TESTS

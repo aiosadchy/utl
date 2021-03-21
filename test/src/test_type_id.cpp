@@ -43,6 +43,4 @@ using TypeIDDecay = utl::TypeID<
 } // namespace
 
 
-TEST(type_id) {
-
-}
+RUN_ALL_TESTS
