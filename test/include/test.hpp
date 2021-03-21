@@ -36,7 +36,7 @@ private:
 };
 
 #define TEST(name) \
-    void test_##name(Test = Test(#name))
+    void test_##name(Test && = Test(#name))
 
 #define RUN_TEST(name) \
     test_##name();
