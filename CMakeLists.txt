@@ -58,3 +58,6 @@ add_executable(utl_tests
 target_include_directories(utl_tests PRIVATE test/include)
 target_link_libraries(utl_tests PRIVATE utl)
 target_compile_options(utl_tests PRIVATE -Wall -Wextra -pedantic)
+
+enable_testing()
+add_test(utl utl_tests)
