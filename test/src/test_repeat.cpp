@@ -1,6 +1,6 @@
 #include <utl/repeat.hpp>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 
 TEST(repeat_regular) {

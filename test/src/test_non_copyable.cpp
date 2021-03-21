@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 
 namespace {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 #include <utl/utl.hpp>
 
@@ -11,6 +11,8 @@ TEST(range);
 TEST(repeat);
 TEST(scope_guard);
 TEST(static_block);
+TEST(type_id);
+TEST(type_info);
 
 using namespace utl;
 
@@ -46,6 +48,8 @@ int main(int, char **) {
     RUN_TEST(repeat)
     RUN_TEST(scope_guard)
     RUN_TEST(static_block)
+    RUN_TEST(type_id)
+    RUN_TEST(type_info)
     bool test = false;
     std::cout << "Should be false: " << test << std::endl;
     {
@@ -88,14 +92,18 @@ int main(int, char **) {
         std::cout << "Looping..." << std::endl;
     }
 
+    std::list<std::string> tests_passed = Test::get_passed_tests();
+    tests_passed.sort();
     std::cout << "Tests passed:" << std::endl;
-    for (const auto &test : Test::get_passed_tests()) {
+    for (const auto &test : tests_passed) {
         std::cout << "  - " << test << std::endl;
     }
 
-    if (!Test::get_failed_tests().empty()) {
+    std::list<std::string> tests_failed = Test::get_failed_tests();
+    tests_failed.sort();
+    if (!tests_failed.empty()) {
         std::cerr << "There are failed tests:" << std::endl;
-        for (const auto &test : Test::get_failed_tests()) {
+        for (const auto &test : tests_failed) {
             std::cerr << "  - " << test << std::endl;
         }
         return 1;

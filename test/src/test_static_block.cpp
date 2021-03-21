@@ -1,6 +1,6 @@
 #include <utl/static_block.hpp>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 
 static bool value_a = false;

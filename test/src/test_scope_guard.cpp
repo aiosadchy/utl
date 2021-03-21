@@ -1,6 +1,6 @@
 #include <utl/scope_guard.hpp>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 
 static int scope_guard_target = 0;

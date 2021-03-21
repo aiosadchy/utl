@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "tests.hpp"
+#include "test.hpp"
 
 
 template <typename T>
