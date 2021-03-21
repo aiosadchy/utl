@@ -56,7 +56,7 @@ public:
         }
     }
 
-    static Index get_registered_types_count() {
+    static Index get_types_count() {
         return s_registered_types;
     }
 

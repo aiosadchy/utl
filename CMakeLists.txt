@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.8)
 project(utl
-        VERSION         0.0.1
-        DESCRIPTION     "A simple general purpose utility library for modern C++"
-        HOMEPAGE_URL    "https://github.com/aiosadchy/utl"
+    VERSION         0.1.0
+    DESCRIPTION     "A simple general purpose utility library for modern C++"
+    HOMEPAGE_URL    "https://github.com/aiosadchy/utl"
 )
 
 function(msg level)
@@ -43,8 +43,10 @@ target_compile_definitions(utl INTERFACE ${UTL_COMPILE_DEFINITIONS})
 
 # tests
 
-add_executable(utl_test
-        test/main.cpp
-)
-target_link_libraries(utl_test utl)
-target_compile_options(utl_test PRIVATE -Wall -Wextra -pedantic)
+add_executable(utl_tests
+        test/src/main.cpp
+        test/src/test_range.cpp
+        test/src/tests.cpp)
+target_include_directories(utl_tests PRIVATE test/include)
+target_link_libraries(utl_tests PRIVATE utl)
+target_compile_options(utl_tests PRIVATE -Wall -Wextra -pedantic)

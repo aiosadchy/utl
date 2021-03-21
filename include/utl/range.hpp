@@ -40,10 +40,13 @@ public:
         }
 
         bool operator!=(const End &end) const {
-            if (m_step > Value{0}) {
+            if (Value{0} < m_step) {
                 return m_value < end.m_value;
             }
-            return m_value > end.m_value;
+            if (Value{0} == m_step) {
+                return false;
+            }
+            return end.m_value < m_value;
         }
 
     private:

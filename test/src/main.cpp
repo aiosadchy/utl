@@ -1,7 +1,11 @@
 #include <iostream>
 #include <typeinfo>
 
+#include "tests.hpp"
+
 #include <utl/utl.hpp>
+
+TEST(range);
 
 using namespace utl;
 
@@ -31,6 +35,7 @@ struct S : public TypeInfo<const S, type_traits::Identity, init::TypeInfo::LAZY>
 using TestTypeID = TypeID<void, int, type_traits::Decay, init::TypeID::STATIC>;
 
 int main(int, char **) {
+    test_range();
     bool test = false;
     std::cout << "Should be false: " << test << std::endl;
     {
@@ -44,19 +49,14 @@ int main(int, char **) {
     std::cout << TypeID<void>::get<float>().get_index() << std::endl;
     std::cout << TypeID<void>::get<double>().get_index() << std::endl;
     std::cout << TypeID<void>::get<int>().get_index() << std::endl;
-    std::cout << "Family size: " << TypeID<void>::get_registered_types_count() << std::endl;
+    std::cout << "Family size: " << TypeID<void>::get_types_count() << std::endl;
 
     std::cout << "TypeID with decay:" << std::endl;
     std::cout << TestTypeID::get<int>().get_index() << std::endl;
     std::cout << TestTypeID::get<const int>().get_index() << std::endl;
     std::cout << TestTypeID::get<double>().get_index() << std::endl;
     std::cout << TestTypeID::get<volatile int &>().get_index() << std::endl;
-    std::cout << "Family size: " << TestTypeID::get_registered_types_count() << std::endl;
-
-    Storage<int> int_storage;
-    new (int_storage.ptr()) int(15);
-    std::cout << int_storage.ref() << std::endl;
-    static_assert(std::is_standard_layout_v<Storage<int>>);
+    std::cout << "Family size: " << TestTypeID::get_types_count() << std::endl;
 
     for (int i : Range(10)) {
         std::cout << i << ", ";
@@ -76,6 +76,19 @@ int main(int, char **) {
 
     UTL_REPEAT(1 + 2) {
         std::cout << "Looping..." << std::endl;
+    }
+
+    std::cout << "Tests passed:" << std::endl;
+    for (const auto &test : Test::get_passed_tests()) {
+        std::cout << "  - " << test << std::endl;
+    }
+
+    if (!Test::get_failed_tests().empty()) {
+        std::cerr << "There are failed tests:" << std::endl;
+        for (const auto &test : Test::get_failed_tests()) {
+            std::cerr << "  - " << test << std::endl;
+        }
+        return 1;
     }
 
     return 0;
