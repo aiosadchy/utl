@@ -79,6 +79,7 @@ if (UTL_BUILD_TESTS)
         test/src/test_static_block.cpp
         test/src/test_type_id.cpp
         test/src/test_type_info.cpp
+        test/src/test_type_traits.cpp
     )
 
     foreach(TEST ${UTL_TEST_SOURCES})
