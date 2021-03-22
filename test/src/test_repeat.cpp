@@ -27,4 +27,4 @@ TEST(negative_counter) {
     ASSERT(value)
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

@@ -3,4 +3,4 @@
 #include "test.hpp"
 
 
-RUN_ALL_TESTS
+TEST_MAIN

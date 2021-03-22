@@ -26,4 +26,4 @@ TEST(non_copyable) {
     ASSERT(!std::is_copy_assignable_v<NonCopyable>)
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

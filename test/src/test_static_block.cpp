@@ -15,4 +15,4 @@ TEST(static_block) {
     ASSERT(value_b == false)
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

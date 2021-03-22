@@ -1,7 +1,9 @@
 #ifndef UTL_TEST_INL
 #define UTL_TEST_INL
 
+#ifndef UTL_TEST_HPP
 #include "test.hpp"
+#endif
 
 
 Test::Test(std::string name, Function *function)
@@ -51,9 +53,9 @@ void Test::print_report() {
     }
 
     if (!get_failed_tests().empty()) {
-        std::cerr << "Tests failed:" << std::endl;
+        std::cout << "Tests failed:" << std::endl;
         for (const auto &test : get_failed_tests()) {
-            std::cerr << "  - " << test << std::endl;
+            std::cout << "  - " << test << std::endl;
         }
     }
 }

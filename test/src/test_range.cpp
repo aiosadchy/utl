@@ -39,4 +39,4 @@ TEST(zero_step) {
     ASSERT(vec(utl::Range(1.0, 2.0, 0.0)).empty())
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

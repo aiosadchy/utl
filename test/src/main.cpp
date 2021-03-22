@@ -77,4 +77,4 @@ TEST(misc) {
     }
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

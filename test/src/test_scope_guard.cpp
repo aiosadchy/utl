@@ -48,4 +48,4 @@ TEST(scope_guard_macro) {
     ASSERT(value == 5)
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

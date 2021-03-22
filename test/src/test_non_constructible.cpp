@@ -27,4 +27,4 @@ TEST(non_constructible) {
     ASSERT(!std::is_move_constructible_v<NonConstructible>)
 }
 
-RUN_ALL_TESTS
+TEST_MAIN

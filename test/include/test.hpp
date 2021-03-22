@@ -42,24 +42,27 @@ private:
 };
 
 
-#define ASSERT(...)                                     \
-    if (!(__VA_ARGS__)) {                               \
-        test_state.fail();                              \
-        std::cerr << "Test [" << test_state.get_name()  \
-                  << "], line " << __LINE__             \
-                  << ": assertion failed: "             \
-                  << #__VA_ARGS__                       \
-                  << std::endl;                         \
+#define CURRENT_TEST test_current_state
+
+
+#define ASSERT(...)                                         \
+    if (!(__VA_ARGS__)) {                                   \
+        CURRENT_TEST.fail();                                \
+        std::cerr << "Test [" << CURRENT_TEST.get_name()    \
+                  << "], line " << __LINE__                 \
+                  << ": assertion failed: "                 \
+                  << #__VA_ARGS__                           \
+                  << std::endl;                             \
     }
 
 
-#define TEST(name)                                              \
-    void execute_test_##name(Test &test_state);                 \
-    inline Test test_##name{#name, execute_test_##name};        \
-    void execute_test_##name([[maybe_unused]] Test &test_state)
+#define TEST(name)                                                  \
+    void execute_test_##name(Test &CURRENT_TEST);                   \
+    inline Test test_##name{#name, execute_test_##name};            \
+    void execute_test_##name([[maybe_unused]] Test &CURRENT_TEST)
 
 
-#define RUN_ALL_TESTS                                       \
+#define TEST_MAIN                                           \
     int main(int, char **) {                                \
         Test::Result result = Test::run_all();              \
         Test::print_report();                               \
