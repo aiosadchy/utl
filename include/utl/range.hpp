@@ -17,9 +17,9 @@ public:
         }
 
     private:
-        Value m_value;
-
         friend class Iterator;
+
+        Value m_value;
 
     };
 
@@ -43,10 +43,10 @@ public:
             if (Value{0} < m_step) {
                 return m_value < end.m_value;
             }
-            if (Value{0} == m_step) {
-                return false;
+            if (m_step < Value{0}) {
+                return end.m_value < m_value;
             }
-            return end.m_value < m_value;
+            return false;
         }
 
     private:
