@@ -70,7 +70,6 @@ if (UTL_BUILD_TESTS)
     enable_testing()
 
     set(UTL_TEST_SOURCES
-        test/src/main.cpp
         test/src/test_non_constructible.cpp
         test/src/test_non_copyable.cpp
         test/src/test_range.cpp
