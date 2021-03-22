@@ -49,20 +49,20 @@ TEST(different_families) {
     std::set<TypeIDA::Index> a {
         TypeIDA::get<bool>().get_index(),
         TypeIDA::get<char>().get_index(),
-        TypeIDA::get<int>().get_index(),
+        TypeIDA::get<const bool>().get_index(),
         TypeIDA::get<bool>().get_index(),
         TypeIDA::get<char>().get_index(),
-        TypeIDA::get<int>().get_index()
+        TypeIDA::get<const bool>().get_index()
     };
     ASSERT(a == std::set<TypeIDA::Index>{0, 1, 2})
 
     std::set<TypeIDB::Index> b {
         TypeIDB::get<void>().get_index(),
-        TypeIDB::get<char>().get_index(),
         TypeIDB::get<double>().get_index(),
+        TypeIDB::get<const double>().get_index(),
         TypeIDB::get<void>().get_index(),
-        TypeIDB::get<char>().get_index(),
-        TypeIDB::get<double>().get_index()
+        TypeIDB::get<double>().get_index(),
+        TypeIDB::get<const double>().get_index()
     };
     ASSERT(a == std::set<TypeIDB::Index>{0, 1, 2})
 
