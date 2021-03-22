@@ -16,7 +16,7 @@
     )
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define STATIC_BLOCK                                        \
         UTL_STATIC_BLOCK_IMPL(                                  \

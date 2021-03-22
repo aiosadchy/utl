@@ -31,7 +31,7 @@ private:
     [[maybe_unused]] utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define SCOPE_GUARD \
         [[maybe_unused]] utl::ScopeGuard UTL_UNIQUE_IDENTIFIER = [&]()

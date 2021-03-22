@@ -6,7 +6,7 @@
     ~Type() = delete;
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define NON_CONSTRUCTIBLE(Type) \
         Type() = delete;            \
