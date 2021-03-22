@@ -15,14 +15,14 @@ project(utl
 ################################################################################
 
 option(
-    UTL_UNSCOPED_MACROS
-    "Define macros without 'UTL' prefix"
+    UTL_NO_UNSCOPED_MACROS
+    "Do not re-define library macros without 'UTL' prefix"
     OFF
 )
 
 option(
-    UTL_USE_COUNTER_MACRO
-    "Allow use of '__COUNTER__' macro in library code"
+    UTL_DO_NOT_USE_COUNTER_MACRO
+    "Do not allow use of '__COUNTER__' macro in library code"
     OFF
 )
 
@@ -47,14 +47,14 @@ function(msg level)
     message(${level} "utl: " ${ARGN})
 endfunction()
 
-if (UTL_UNSCOPED_MACROS)
-    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_UNSCOPED_MACROS)
-    msg(STATUS "define unscoped macros")
+if (UTL_NO_UNSCOPED_MACROS)
+    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_NO_UNSCOPED_MACROS)
+    msg(STATUS "unscoped macros are disabled")
 endif()
 
-if (UTL_USE_COUNTER_MACRO)
-    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_USE_COUNTER_MACRO)
-    msg(STATUS "allow using '__COUNTER__' macro in library code")
+if (UTL_DO_NOT_USE_COUNTER_MACRO)
+    set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_DO_NOT_USE_COUNTER_MACRO)
+    msg(STATUS "do not allow use of '__COUNTER__' macro in library code")
 endif()
 
 target_compile_definitions(utl INTERFACE ${UTL_COMPILE_DEFINITIONS})

@@ -6,7 +6,7 @@
     Type &operator=(const Type &another) = delete;
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define NON_COPYABLE(Type)                          \
         Type(const Type &another) = delete;             \

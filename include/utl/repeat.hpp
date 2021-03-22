@@ -8,7 +8,7 @@
     for ([[maybe_unused]] auto UTL_UNIQUE_IDENTIFIER : utl::Range(count))
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define REPEAT(count) \
         for ([[maybe_unused]] auto UTL_UNIQUE_IDENTIFIER : utl::Range(count))

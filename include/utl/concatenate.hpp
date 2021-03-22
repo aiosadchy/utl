@@ -8,7 +8,7 @@
     UTL_CONCATENATE_WITHOUT_EXPANSION(x, y)
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
     #define CONCATENATE_WITHOUT_EXPANSION(x, y) \
         x ## y

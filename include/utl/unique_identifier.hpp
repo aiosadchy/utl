@@ -3,7 +3,7 @@
 
 #include "utl/concatenate.hpp"
 
-#if defined(UTL_USE_COUNTER_MACRO) && defined(__COUNTER__)
+#if !defined(UTL_DO_NOT_USE_COUNTER_MACRO) && defined(__COUNTER__)
     #define UTL_UNIQUE_IDENTIFIER \
         UTL_CONCATENATE(utl_unique_identifier_, __COUNTER__)
 #else
@@ -12,9 +12,9 @@
 #endif
 
 
-#ifdef UTL_UNSCOPED_MACROS
+#ifndef UTL_NO_UNSCOPED_MACROS
 
-    #if defined(UTL_USE_COUNTER_MACRO) && defined(__COUNTER__)
+    #if !defined(UTL_DO_NOT_USE_COUNTER_MACRO) && defined(__COUNTER__)
         #define UNIQUE_IDENTIFIER \
             UTL_CONCATENATE(utl_unique_identifier_, __COUNTER__)
     #else
