@@ -34,7 +34,7 @@ public:
 
     template <typename T>
     static Data &get() {
-        if constexpr (type_traits::is_same<T, Decay<T>>) {
+        if constexpr (type_traits::IS_SAME<T, Decay<T>>) {
             if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
                 static Data type_data{Initializer<T>()};
                 return type_data;

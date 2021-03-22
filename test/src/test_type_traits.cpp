@@ -23,11 +23,11 @@ TEST(decay) {
 }
 
 TEST(is_same) {
-    ASSERT(utl::type_traits::is_same<int, int>)
-    ASSERT(utl::type_traits::is_same<const int &, const int &>)
+    ASSERT(utl::type_traits::IS_SAME<int, int>)
+    ASSERT(utl::type_traits::IS_SAME<const int &, const int &>)
 
-    ASSERT(!utl::type_traits::is_same<const int &, int>)
-    ASSERT(!utl::type_traits::is_same<float, int>)
+    ASSERT(!utl::type_traits::IS_SAME<const int &, int>)
+    ASSERT(!utl::type_traits::IS_SAME<float, int>)
 }
 
 TEST(is_specialization) {

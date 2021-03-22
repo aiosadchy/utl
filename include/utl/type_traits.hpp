@@ -25,7 +25,7 @@ template <typename T>
 using Decay = std::decay_t<T>;
 
 template <typename T, typename U>
-constexpr bool is_same = std::is_same_v<T, U>;
+constexpr bool IS_SAME = std::is_same_v<T, U>;
 
 template <typename T, template <typename...> typename Template>
 constexpr bool IS_SPECIALIZATION = detail::IsSpecializationType<T, Template>::value;

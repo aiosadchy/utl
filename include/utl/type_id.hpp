@@ -50,7 +50,7 @@ public:
 
     template <typename T>
     static TypeID get() {
-        if constexpr (type_traits::is_same<T, Decay<T>>) {
+        if constexpr (type_traits::IS_SAME<T, Decay<T>>) {
             if constexpr (INIT_MODE == init::TypeID::LAZY) {
                 static const Index type_index{s_registered_types++};
                 return TypeID{type_index};
