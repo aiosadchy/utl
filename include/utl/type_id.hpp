@@ -49,7 +49,7 @@ public:
                 static const Index type_index{s_registered_types++};
                 return TypeID{type_index};
             } else {
-                return TypeID{s_type_index < T > };
+                return TypeID{s_type_index<T>};
             }
         } else {
             return get<TDecay<T>>();
