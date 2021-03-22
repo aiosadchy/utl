@@ -70,7 +70,6 @@ if (UTL_BUILD_TESTS)
     enable_testing()
 
     set(UTL_TEST_SOURCES
-        test/src/main.cpp
         test/src/test_non_constructible.cpp
         test/src/test_non_copyable.cpp
         test/src/test_range.cpp
@@ -79,6 +78,7 @@ if (UTL_BUILD_TESTS)
         test/src/test_static_block.cpp
         test/src/test_type_id.cpp
         test/src/test_type_info.cpp
+        test/src/test_type_traits.cpp
     )
 
     foreach(TEST ${UTL_TEST_SOURCES})
