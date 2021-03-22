@@ -24,7 +24,13 @@ template <
 class TypeID {
 public:
     using Family = TFamily;
+
     using Index = TIndex;
+
+    template <typename T>
+    using Decay = TDecay<T>;
+
+    static constexpr init::TypeID INIT_MODE = V_INIT_MODE;
 
     TypeID()
         : m_index(Index{0} - Index{1}) {
@@ -44,15 +50,15 @@ public:
 
     template <typename T>
     static TypeID get() {
-        if constexpr (type_traits::is_same<T, TDecay<T>>) {
-            if constexpr (V_INIT_MODE == init::TypeID::LAZY) {
+        if constexpr (type_traits::is_same<T, Decay<T>>) {
+            if constexpr (INIT_MODE == init::TypeID::LAZY) {
                 static const Index type_index{s_registered_types++};
                 return TypeID{type_index};
             } else {
                 return TypeID{s_type_index<T>};
             }
         } else {
-            return get<TDecay<T>>();
+            return get<Decay<T>>();
         }
     }
 

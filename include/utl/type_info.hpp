@@ -25,19 +25,24 @@ public:
     using Data = TData;
 
     template <typename T>
+    using Decay = TDecay<T>;
+
+    static constexpr init::TypeInfo INIT_MODE = V_INIT_MODE;
+
+    template <typename T>
     class Initializer {};
 
     template <typename T>
     static Data &get() {
-        if constexpr (type_traits::is_same<T, TDecay<T>>) {
-            if constexpr (V_INIT_MODE == init::TypeInfo::LAZY) {
+        if constexpr (type_traits::is_same<T, Decay<T>>) {
+            if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
                 static Data type_data{Initializer<T>()};
                 return type_data;
             } else {
                 return s_type_data<T>;
             }
         } else {
-            return get<TDecay<T>>();
+            return get<Decay<T>>();
         }
     }
 
