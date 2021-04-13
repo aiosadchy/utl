@@ -45,6 +45,10 @@ public:
         return this + x;
     }
 
+    bool operator()(int x) {
+        return (this + x) == nullptr;
+    }
+
 };
 
 } // namespace
@@ -84,8 +88,11 @@ TEST(function) {
     ASSERT(std::is_same_v<int, utl::type_traits::Function<Method>::Argument<0>>)
 
     using CMethod = decltype(&C::const_method);
-    ASSERT(std::is_same_v<const C *,  utl::type_traits::Function<CMethod>::Return>)
-    ASSERT(std::is_same_v<int,        utl::type_traits::Function<CMethod>::Argument<0>>)
+    ASSERT(std::is_same_v<const C *, utl::type_traits::Function<CMethod>::Return>)
+    ASSERT(std::is_same_v<int,       utl::type_traits::Function<CMethod>::Argument<0>>)
+
+    ASSERT(std::is_same_v<bool, utl::type_traits::Function<C>::Return>)
+    ASSERT(std::is_same_v<int,  utl::type_traits::Function<C>::Argument<0>>)
 }
 
 TEST(is_same) {
