@@ -10,26 +10,24 @@ namespace type_traits {
 namespace detail {
 
 template <int I, typename First, typename... Rest>
-class PackElement {
-public:
+struct PackElement {
     static_assert(I >= 0 && I <= sizeof...(Rest), "Type index out of range");
     using Type = typename PackElement<I - 1, Rest...>::Type;
 
 };
 
 template <typename First, typename... Rest>
-class PackElement<0, First, Rest...> {
-public:
+struct PackElement<0, First, Rest...> {
     using Type = First;
 
 };
 
 
 template <typename T, template <typename...> typename Template>
-class IsSpecialization : public std::false_type {};
+struct IsSpecialization : std::false_type {};
 
 template <template <typename...> typename Template, typename... Args>
-class IsSpecialization<Template<Args...>, Template> : public std::true_type {};
+struct IsSpecialization<Template<Args...>, Template> : std::true_type {};
 
 } // namespace detail
 
@@ -41,8 +39,7 @@ template <typename T>
 using Decay = std::decay_t<T>;
 
 template <typename... Types>
-class Pack {
-public:
+struct Pack {
     template <int I>
     using Element = typename detail::PackElement<I, Types...>::Type;
 
@@ -50,21 +47,10 @@ public:
 
 
 template <typename F>
-class Function {
-private:
-    using Helper = Function<decltype(&F::operator())>;
-
-public:
-    using Return = typename Helper::Return;
-
-    template <int I>
-    using Argument = typename Helper::template Argument<I>;
-
-};
+struct Function : Function<decltype(&F::operator())> {};
 
 template <typename R, typename... Args>
-class Function<R (*)(Args...)> {
-public:
+struct Function<R (*)(Args...)> {
     using Return = R;
 
     template <int I>
@@ -73,11 +59,10 @@ public:
 };
 
 template <typename R, typename... Args>
-class Function<R (Args...)> : public Function<R (*)(Args...)> {};
+struct Function<R (Args...)> : Function<R (*)(Args...)> {};
 
 template <typename F, typename R, typename... Args>
-class Function<R (F::*)(Args...)> {
-public:
+struct Function<R (F::*)(Args...)> {
     using Return = R;
 
     template <int I>
@@ -86,7 +71,7 @@ public:
 };
 
 template <typename F, typename R, typename... Args>
-class Function<R (F::*)(Args...) const> : public Function<R (F::*)(Args...)> {};
+struct Function<R (F::*)(Args...) const> : Function<R (F::*)(Args...)> {};
 
 
 template <typename T, typename U>
