@@ -49,6 +49,46 @@ public:
 };
 
 
+template <typename F>
+class Function {
+private:
+    using Helper = Function<decltype(&F::operator())>;
+
+public:
+    using Return = typename Helper::Return;
+
+    template <int I>
+    using Argument = typename Helper::template Argument<I>;
+
+};
+
+template <typename R, typename... Args>
+class Function<R (*)(Args...)> {
+public:
+    using Return = R;
+
+    template <int I>
+    using Argument = typename Pack<Args...>::template Element<I>;
+
+};
+
+template <typename R, typename... Args>
+class Function<R (Args...)> : public Function<R (*)(Args...)> {};
+
+template <typename F, typename R, typename... Args>
+class Function<R (F::*)(Args...)> {
+public:
+    using Return = R;
+
+    template <int I>
+    using Argument = typename Pack<Args...>::template Element<I>;
+
+};
+
+template <typename F, typename R, typename... Args>
+class Function<R (F::*)(Args...) const> : public Function<R (F::*)(Args...)> {};
+
+
 template <typename T, typename U>
 constexpr bool IS_SAME = std::is_same_v<T, U>;
 
