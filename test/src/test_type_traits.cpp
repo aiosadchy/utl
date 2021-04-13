@@ -22,6 +22,12 @@ TEST(decay) {
     ASSERT(std::is_same_v<int, utl::type_traits::Decay<const volatile int &>>)
 }
 
+TEST(pack) {
+    ASSERT(std::is_same_v<int,   utl::type_traits::Pack<int, float, bool>::Element<0>>)
+    ASSERT(std::is_same_v<float, utl::type_traits::Pack<int, float, bool>::Element<1>>)
+    ASSERT(std::is_same_v<bool,  utl::type_traits::Pack<int, float, bool>::Element<2>>)
+}
+
 TEST(is_same) {
     ASSERT(utl::type_traits::IS_SAME<int, int>)
     ASSERT(utl::type_traits::IS_SAME<const int &, const int &>)
