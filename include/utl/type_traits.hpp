@@ -9,8 +9,11 @@ namespace type_traits {
 
 namespace detail {
 
+template <int I, typename... Types>
+struct PackElement;
+
 template <int I, typename First, typename... Rest>
-struct PackElement {
+struct PackElement<I, First, Rest...> {
     static_assert(I >= 0 && I <= sizeof...(Rest), "Type index out of range");
     using Type = typename PackElement<I - 1, Rest...>::Type;
 
@@ -43,6 +46,8 @@ struct Pack {
     template <int I>
     using Element = typename detail::PackElement<I, Types...>::Type;
 
+    static constexpr int SIZE = sizeof...(Types);
+
 };
 
 
@@ -56,6 +61,8 @@ struct Function<R (*)(Args...)> {
     template <int I>
     using Argument = typename Pack<Args...>::template Element<I>;
 
+    static constexpr int ARGUMENTS_COUNT = Pack<Args...>::SIZE;
+
 };
 
 template <typename R, typename... Args>
@@ -67,6 +74,8 @@ struct Function<R (F::*)(Args...)> {
 
     template <int I>
     using Argument = typename Pack<Args...>::template Element<I>;
+
+    static constexpr int ARGUMENTS_COUNT = Pack<Args...>::SIZE;
 
 };
 

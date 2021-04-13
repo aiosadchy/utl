@@ -23,6 +23,7 @@ TEST(decay) {
 }
 
 TEST(pack) {
+    ASSERT(utl::type_traits::Pack<int, float, bool>::SIZE == 3)
     ASSERT(std::is_same_v<int,   utl::type_traits::Pack<int, float, bool>::Element<0>>)
     ASSERT(std::is_same_v<float, utl::type_traits::Pack<int, float, bool>::Element<1>>)
     ASSERT(std::is_same_v<bool,  utl::type_traits::Pack<int, float, bool>::Element<2>>)
@@ -45,8 +46,8 @@ public:
         return this + x;
     }
 
-    bool operator()(int x) {
-        return (this + x) == nullptr;
+    [[maybe_unused]] bool operator()() {
+        return this->method(5) == nullptr;
     }
 
 };
@@ -60,39 +61,46 @@ TEST(function) {
     ASSERT(std::is_same_v<void,  utl::type_traits::Function<Lambda>::Return>)
     ASSERT(std::is_same_v<int &, utl::type_traits::Function<Lambda>::Argument<0>>)
     ASSERT(std::is_same_v<float, utl::type_traits::Function<Lambda>::Argument<1>>)
+    ASSERT(utl::type_traits::Function<Lambda>::ARGUMENTS_COUNT == 2)
 
     [[maybe_unused]] auto mutable_lambda = [](int &, float) mutable {};
     using MLambda = decltype(mutable_lambda);
     ASSERT(std::is_same_v<void,  utl::type_traits::Function<MLambda>::Return>)
     ASSERT(std::is_same_v<int &, utl::type_traits::Function<MLambda>::Argument<0>>)
     ASSERT(std::is_same_v<float, utl::type_traits::Function<MLambda>::Argument<1>>)
+    ASSERT(utl::type_traits::Function<MLambda>::ARGUMENTS_COUNT == 2)
 
     [[maybe_unused]] auto constexpr_lambda = [](int &, float) constexpr {};
     using CLambda = decltype(constexpr_lambda);
     ASSERT(std::is_same_v<void,  utl::type_traits::Function<CLambda>::Return>)
     ASSERT(std::is_same_v<int &, utl::type_traits::Function<CLambda>::Argument<0>>)
     ASSERT(std::is_same_v<float, utl::type_traits::Function<CLambda>::Argument<1>>)
+    ASSERT(utl::type_traits::Function<CLambda>::ARGUMENTS_COUNT == 2)
 
     using Function = decltype(function);
     ASSERT(std::is_same_v<int,  utl::type_traits::Function<Function>::Return>)
     ASSERT(std::is_same_v<char, utl::type_traits::Function<Function>::Argument<0>>)
     ASSERT(std::is_same_v<bool, utl::type_traits::Function<Function>::Argument<1>>)
+    ASSERT(utl::type_traits::Function<Function>::ARGUMENTS_COUNT == 2)
 
     using PFunction = decltype(&function);
     ASSERT(std::is_same_v<int,  utl::type_traits::Function<PFunction>::Return>)
     ASSERT(std::is_same_v<char, utl::type_traits::Function<PFunction>::Argument<0>>)
     ASSERT(std::is_same_v<bool, utl::type_traits::Function<PFunction>::Argument<1>>)
+    ASSERT(utl::type_traits::Function<PFunction>::ARGUMENTS_COUNT == 2)
 
     using Method = decltype(&C::method);
     ASSERT(std::is_same_v<C *, utl::type_traits::Function<Method>::Return>)
     ASSERT(std::is_same_v<int, utl::type_traits::Function<Method>::Argument<0>>)
+    ASSERT(utl::type_traits::Function<Method>::ARGUMENTS_COUNT == 1)
 
     using CMethod = decltype(&C::const_method);
     ASSERT(std::is_same_v<const C *, utl::type_traits::Function<CMethod>::Return>)
     ASSERT(std::is_same_v<int,       utl::type_traits::Function<CMethod>::Argument<0>>)
+    ASSERT(utl::type_traits::Function<CMethod>::ARGUMENTS_COUNT == 1)
 
     ASSERT(std::is_same_v<bool, utl::type_traits::Function<C>::Return>)
-    ASSERT(std::is_same_v<int,  utl::type_traits::Function<C>::Argument<0>>)
+    ASSERT(utl::type_traits::Function<C>::ARGUMENTS_COUNT == 0)
 }
 
 TEST(is_same) {
