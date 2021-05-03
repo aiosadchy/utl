@@ -29,7 +29,7 @@ option(
 option(
     UTL_BUILD_TESTS
     "Build library tests"
-    ON
+    OFF
 )
 
 
