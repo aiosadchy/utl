@@ -8,25 +8,13 @@ class Range {
 public:
     using Value = TValue;
 
-    class Iterator;
-
-    class End {
-    public:
-        explicit End(Value value)
-            : m_value{value} {
-        }
-
-    private:
-        friend class Iterator;
-
-        Value m_value;
-
-    };
+    class End {};
 
     class Iterator {
     public:
-        Iterator(Value initial_value, Value step)
+        Iterator(Value initial_value, Value end, Value step)
             : m_value{initial_value}
+            , m_end{end}
             , m_step{step} {
         }
 
@@ -39,18 +27,19 @@ public:
             return *this;
         }
 
-        bool operator!=(const End &end) const {
+        bool operator!=(const End) const {
             if (Value{0} < m_step) {
-                return m_value < end.m_value;
+                return m_value < m_end;
             }
             if (m_step < Value{0}) {
-                return end.m_value < m_value;
+                return m_end < m_value;
             }
             return false;
         }
 
     private:
         Value m_value;
+        Value m_end;
         Value m_step;
 
     };
@@ -66,11 +55,11 @@ public:
     }
 
     Iterator begin() const {
-        return Iterator{m_begin, m_step};
+        return Iterator{m_begin, m_end, m_step};
     }
 
     End end() const {
-        return End{m_end};
+        return End{};
     }
 
 private:
