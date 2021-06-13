@@ -1,4 +1,4 @@
-#include <utl/default_copy_operations.hpp>
+#include <utl/default_movable.hpp>
 
 #include "test.hpp"
 

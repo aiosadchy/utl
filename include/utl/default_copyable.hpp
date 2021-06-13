@@ -1,17 +1,17 @@
-#ifndef UTL_DEFAULT_COPY_OPERATIONS_HPP
-#define UTL_DEFAULT_COPY_OPERATIONS_HPP
+#ifndef UTL_DEFAULT_COPYABLE_HPP
+#define UTL_DEFAULT_COPYABLE_HPP
 
-#define UTL_DEFAULT_COPY_OPERATIONS(Type)           \
+#define UTL_DEFAULT_COPYABLE(Type)                  \
     Type(const Type &another) = default;            \
     Type &operator=(const Type &another) = default;
 
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define DEFAULT_COPY_OPERATIONS(Type)               \
+    #define DEFAULT_COPYABLE(Type)                      \
         Type(const Type &another) = default;            \
         Type &operator=(const Type &another) = default;
 
 #endif
 
-#endif // UTL_DEFAULT_COPY_OPERATIONS_HPP
+#endif // UTL_DEFAULT_COPYABLE_HPP

@@ -2,8 +2,8 @@
 #define UTL_UTL_HPP
 
 #include "utl/concatenate.hpp"
-#include "utl/default_copy_operations.hpp"
-#include "utl/default_move_operations.hpp"
+#include "utl/default_copyable.hpp"
+#include "utl/default_movable.hpp"
 #include "utl/non_constructible.hpp"
 #include "utl/non_copyable.hpp"
 #include "utl/range.hpp"
