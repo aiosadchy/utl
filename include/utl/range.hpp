@@ -69,6 +69,16 @@ private:
 
 };
 
+template <typename TValue>
+Range<TValue> range(TValue length) {
+    return Range(length);
+}
+
+template <typename TValue>
+Range<TValue> range(TValue begin, TValue end, TValue step = TValue{1}) {
+    return Range(begin, end, step);
+}
+
 } // namespace utl
 
 #endif // UTL_RANGE_HPP
