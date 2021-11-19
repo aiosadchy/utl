@@ -34,19 +34,20 @@ public:
 
     template <typename T>
     static Data &get() {
-        if constexpr (type_traits::IS_SAME<T, Decay<T>>) {
-            if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
-                static Data type_data{Initializer<T>()};
-                return type_data;
-            } else {
-                return s_type_data<T>;
-            }
-        } else {
-            return get<Decay<T>>();
-        }
+        return get_without_decay<Decay<T>>();
     }
 
 private:
+    template <typename T>
+    static Data &get_without_decay() {
+        if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
+            static Data type_data{Initializer<T>()};
+            return type_data;
+        } else {
+            return s_type_data<T>;
+        }
+    }
+
     template <typename T>
     inline static Data s_type_data{Initializer<T>()};
 
