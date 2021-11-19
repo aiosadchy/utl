@@ -23,7 +23,7 @@ template <
 >
 class TypeID {
 public:
-    using Family = TFamily;
+    using Family [[maybe_unused]] = TFamily;
 
     using Index = TIndex;
 
@@ -50,16 +50,7 @@ public:
 
     template <typename T>
     static TypeID get() {
-        if constexpr (type_traits::IS_SAME<T, Decay<T>>) {
-            if constexpr (INIT_MODE == init::TypeID::LAZY) {
-                static const Index type_index{s_registered_types++};
-                return TypeID{type_index};
-            } else {
-                return TypeID{s_type_index<T>};
-            }
-        } else {
-            return get<Decay<T>>();
-        }
+        return get_without_decay<Decay<T>>();
     }
 
     static Index get_types_count() {
@@ -69,6 +60,16 @@ public:
 private:
     explicit TypeID(Index index)
         : m_index{index} {
+    }
+
+    template <typename T>
+    static TypeID get_without_decay() {
+        if constexpr (INIT_MODE == init::TypeID::LAZY) {
+            static const Index type_index{s_registered_types++};
+            return TypeID{type_index};
+        } else {
+            return TypeID{s_type_index<T>};
+        }
     }
 
     Index m_index;
