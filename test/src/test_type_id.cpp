@@ -113,5 +113,3 @@ TEST(decay) {
 
     ASSERT(TypeIDDecay::get_types_count() == 4)
 }
-
-TEST_MAIN

@@ -26,5 +26,3 @@ TEST(non_constructible) {
     ASSERT(!std::is_copy_constructible_v<NonConstructible>)
     ASSERT(!std::is_move_constructible_v<NonConstructible>)
 }
-
-TEST_MAIN

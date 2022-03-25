@@ -118,5 +118,3 @@ TEST(is_specialization) {
     ASSERT(!utl::type_traits::IS_SPECIALIZATION<std::map<char, float>, std::vector>)
     ASSERT(!utl::type_traits::IS_SPECIALIZATION<std::vector<char>, std::map>)
 }
-
-TEST_MAIN

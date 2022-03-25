@@ -30,5 +30,3 @@ TEST(default_copyable) {
     ASSERT(std::is_copy_constructible_v<Copyable>)
     ASSERT(std::is_copy_assignable_v<Copyable>)
 }
-
-TEST_MAIN

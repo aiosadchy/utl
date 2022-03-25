@@ -26,5 +26,3 @@ TEST(negative_counter) {
     }
     ASSERT(value)
 }
-
-TEST_MAIN

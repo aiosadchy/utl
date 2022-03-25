@@ -16,21 +16,21 @@ public:
 
     using Function = void (Test &);
 
-    explicit Test(std::string name, Function *function = nullptr);
+    inline explicit Test(std::string name, Function *function = nullptr);
 
-    Result operator()();
+    inline Result operator()();
 
-    std::string get_name() const;
-    void fail();
+    inline std::string get_name() const;
+    inline void fail();
 
-    static const std::list<std::string> &get_failed_tests();
-    static const std::list<std::string> &get_passed_tests();
+    inline static const std::list<std::string> &get_failed_tests();
+    inline static const std::list<std::string> &get_passed_tests();
 
-    static Result run_all();
-    static void print_report();
+    inline static Result run_all();
+    inline static void print_report();
 
 private:
-    static std::map<std::string, Test &> &get_all_tests();
+    inline static std::map<std::string, Test &> &get_all_tests();
 
     std::string m_name;
     Function *m_function;

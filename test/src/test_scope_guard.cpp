@@ -47,5 +47,3 @@ TEST(scope_guard_macro) {
 
     ASSERT(value == 5)
 }
-
-TEST_MAIN
