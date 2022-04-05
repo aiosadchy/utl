@@ -25,5 +25,3 @@ TEST(non_copyable) {
     ASSERT(!std::is_copy_constructible_v<NonCopyable>)
     ASSERT(!std::is_copy_assignable_v<NonCopyable>)
 }
-
-TEST_MAIN

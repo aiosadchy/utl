@@ -41,5 +41,3 @@ TEST(default_copyable) {
     ASSERT(std::is_move_constructible_v<Movable>)
     ASSERT(std::is_move_assignable_v<Movable>)
 }
-
-TEST_MAIN

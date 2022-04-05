@@ -115,5 +115,3 @@ TEST(decay) {
 
     ASSERT(TIDecay::get_count() == 2)
 }
-
-TEST_MAIN

@@ -85,7 +85,7 @@ if (UTL_BUILD_TESTS)
 
     foreach(TEST ${UTL_TEST_SOURCES})
         get_filename_component(TEST_EXE ${TEST} NAME_WE)
-        add_executable(${TEST_EXE} ${TEST})
+        add_executable(${TEST_EXE} ${TEST} test/src/main.cpp)
         target_include_directories(${TEST_EXE} PRIVATE test/include)
         target_link_libraries(${TEST_EXE} PRIVATE utl)
 

@@ -14,5 +14,3 @@ TEST(static_block) {
     ASSERT(value_a == true)
     ASSERT(value_b == false)
 }
-
-TEST_MAIN

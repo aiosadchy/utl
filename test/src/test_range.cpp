@@ -38,5 +38,3 @@ TEST(zero_step) {
     ASSERT(vec(utl::range( 10,   5,   0)).empty())
     ASSERT(vec(utl::range(1.0, 2.0, 0.0)).empty())
 }
-
-TEST_MAIN
