@@ -48,7 +48,7 @@ TEST(integer_hash32_unsigned) {
         utl::integer_hash::hash32,
         test_sample_count,
         0,
-        -0.01
+        0.01
     );
 }
 
