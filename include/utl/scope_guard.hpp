@@ -1,7 +1,7 @@
 #ifndef UTL_SCOPE_GUARD_HPP
 #define UTL_SCOPE_GUARD_HPP
 
-#include <execution>
+#include <exception>
 #include <type_traits>
 #include <utility>
 
