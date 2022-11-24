@@ -1,54 +1,51 @@
 #ifndef UTL_HASH_HPP
 #define UTL_HASH_HPP
 
+#include <cstdint>
 #include <functional>
 #include <type_traits>
 
-#include "utl/default_copyable.hpp"
-
 namespace utl {
 
-class Hash {
-public:
-    UTL_DEFAULT_COPYABLE(Hash)
+namespace integer_hash {
 
-    template <typename T, typename THash = std::hash<T>>
-    explicit Hash(const T &object, THash &&hash_function = THash{})
-        : m_hash_value{hash_function(object)} {
+// Credits: Hash Function Prospector contributors
+// https://github.com/skeeto/hash-prospector
+constexpr std::uint32_t hash32(std::uint32_t x) {
+    x ^= x >> UINT32_C(16);
+    x *= UINT32_C(0x21f0aaad);
+    x ^= x >> UINT32_C(15);
+    x *= UINT32_C(0x735a2d97);
+    x ^= x >> UINT32_C(15);
+    return x;
+}
+
+// Credits: Sebastiano Vigna (vigna@acm.org)
+// https://xorshift.di.unimi.it/splitmix64.c
+constexpr std::uint64_t hash64(std::uint64_t x) {
+    x = (x ^ (x >> UINT64_C(30))) * UINT64_C(0xbf58476d1ce4e5b9);
+    x = (x ^ (x >> UINT64_C(27))) * UINT64_C(0x94d049bb133111eb);
+    x = (x ^ (x >> UINT64_C(31)));
+    return x;
+}
+
+} // namespace integer_hash
+
+
+template <
+    template <typename> typename THash = std::hash,
+    typename TFirst,
+    typename... TRest
+>
+constexpr std::size_t hash(TFirst &&first, TRest &&...rest) {
+    std::size_t result = THash<std::decay_t<TFirst>>{}(std::forward<TFirst>(first));
+    if constexpr (sizeof...(TRest) > 0) {
+        result ^= hash<THash>(std::forward<TRest>(rest)...)
+            + std::size_t{UINTMAX_C(0x9e3779b9)}
+            + (result << std::size_t{6})
+            + (result >> std::size_t{2});
     }
-
-    [[nodiscard]] operator std::size_t() const {
-        return m_hash_value;
-    }
-
-    Hash &operator^=(const Hash &another) {
-        m_hash_value ^= another.m_hash_value
-            + std::size_t{0x9e3779b9}
-            + (m_hash_value << std::size_t{6})
-            + (m_hash_value >> std::size_t{2});
-        return *this;
-    }
-
-    [[nodiscard]] Hash operator^(const Hash &another) const {
-        Hash result = *this;
-        result ^= another;
-        return result;
-    }
-
-    template <typename T>
-    Hash &operator<<(const T &object) {
-        *this ^= Hash{object};
-        return *this;
-    }
-
-private:
-    std::size_t m_hash_value;
-
-};
-
-template <typename... Args>
-std::size_t hash(Args &&...args) {
-    return (... ^ Hash{args});
+    return result;
 }
 
 } // namespace utl
