@@ -72,12 +72,14 @@ if (UTL_BUILD_TESTS)
     set(UTL_TEST_SOURCES
         test/src/test_default_copyable.cpp
         test/src/test_default_movable.cpp
+        test/src/test_hash.cpp
         test/src/test_non_constructible.cpp
         test/src/test_non_copyable.cpp
         test/src/test_range.cpp
         test/src/test_repeat.cpp
         test/src/test_scope_guard.cpp
         test/src/test_static_block.cpp
+        test/src/test_string_literal_template.cpp
         test/src/test_timer.cpp
         test/src/test_type_id.cpp
         test/src/test_type_info.cpp
