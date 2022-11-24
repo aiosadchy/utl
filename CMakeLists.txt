@@ -79,6 +79,8 @@ if (UTL_BUILD_TESTS)
         test/src/test_repeat.cpp
         test/src/test_scope_guard.cpp
         test/src/test_static_block.cpp
+        test/src/test_string_literal_template.cpp
+        test/src/test_timer.cpp
         test/src/test_type_id.cpp
         test/src/test_type_info.cpp
         test/src/test_type_traits.cpp
