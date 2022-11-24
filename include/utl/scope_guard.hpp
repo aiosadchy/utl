@@ -17,7 +17,7 @@ public:
         , m_uncaught_exceptions{std::uncaught_exceptions()} {
     }
 
-    ~ScopeGuard() noexcept(noexcept(m_function())) {
+    ~ScopeGuard() noexcept(noexcept(this->m_function())) {
         bool success = std::uncaught_exceptions() == m_uncaught_exceptions;
         if ((TRIGGER_ON_SUCCESS && success) || (TRIGGER_ON_EXCEPTION && !success)) {
             m_function();
