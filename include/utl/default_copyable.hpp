@@ -8,9 +8,9 @@
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define DEFAULT_COPYABLE(Type)                      \
-        Type(const Type &another) = default;            \
-        Type &operator=(const Type &another) = default;
+#define DEFAULT_COPYABLE(Type)                      \
+    Type(const Type &another) = default;            \
+    Type &operator=(const Type &another) = default;
 
 #endif
 

@@ -20,7 +20,6 @@ class FamilyLazy {};
 using TypeIDLazy = utl::TypeID<
     FamilyLazy,
     int,
-    utl::type_traits::Identity,
     utl::init::TypeID::LAZY
 >;
 
@@ -29,19 +28,11 @@ class FamilyStatic {};
 using TypeIDStatic = utl::TypeID<
     FamilyStatic,
     int,
-    utl::type_traits::Identity,
     utl::init::TypeID::STATIC
 >;
 
-class FamilyDecay {};
-
-using TypeIDDecay = utl::TypeID<
-    FamilyDecay,
-    int,
-    std::remove_const_t
->;
-
 } // namespace
+
 
 TEST(different_families) {
     ASSERT(std::is_same_v<TypeIDA::Index, TypeIDB::Index>)
@@ -96,20 +87,4 @@ TEST(static_initialization) {
     ASSERT(indices == std::set<TypeIDStatic::Index>{0, 1, 2, 3})
 
     ASSERT(TypeIDStatic::get_types_count() == 4)
-}
-
-TEST(decay) {
-    std::set<TypeIDDecay::Index> indices {
-        TypeIDDecay::get<long>().get_index(),
-        TypeIDDecay::get<long>().get_index(),
-        TypeIDDecay::get<const long>().get_index(),
-        TypeIDDecay::get<bool>().get_index(),
-        TypeIDDecay::get<bool>().get_index(),
-        TypeIDDecay::get<const bool>().get_index(),
-        TypeIDDecay::get<volatile bool>().get_index(),
-        TypeIDDecay::get<volatile long>().get_index()
-    };
-    ASSERT(indices == std::set<TypeIDDecay::Index>{0, 1, 2, 3})
-
-    ASSERT(TypeIDDecay::get_types_count() == 4)
 }

@@ -18,7 +18,6 @@ namespace init {
 template <
         typename TFamily,
         typename TIndex = unsigned short int,
-        template <typename> typename TDecay = utl::type_traits::Identity,
         init::TypeID V_INIT_MODE = init::TypeID::LAZY
 >
 class TypeID {
@@ -27,13 +26,10 @@ public:
 
     using Index = TIndex;
 
-    template <typename T>
-    using Decay = TDecay<T>;
-
     static constexpr init::TypeID INIT_MODE = V_INIT_MODE;
 
     TypeID()
-        : m_index(Index{0} - Index{1}) {
+        : m_index{-1} {
     }
 
     Index get_index() const {
@@ -50,7 +46,12 @@ public:
 
     template <typename T>
     static TypeID get() {
-        return get_without_decay<Decay<T>>();
+        if constexpr (INIT_MODE == init::TypeID::LAZY) {
+            static const Index type_index{s_registered_types++};
+            return TypeID{type_index};
+        } else {
+            return TypeID{s_type_index<T>};
+        }
     }
 
     static Index get_types_count() {
@@ -60,16 +61,6 @@ public:
 private:
     explicit TypeID(Index index)
         : m_index{index} {
-    }
-
-    template <typename T>
-    static TypeID get_without_decay() {
-        if constexpr (INIT_MODE == init::TypeID::LAZY) {
-            static const Index type_index{s_registered_types++};
-            return TypeID{type_index};
-        } else {
-            return TypeID{s_type_index<T>};
-        }
     }
 
     Index m_index;

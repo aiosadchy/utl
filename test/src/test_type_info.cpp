@@ -38,24 +38,17 @@ TYPE_INFO_CLASS(
 TYPE_INFO_CLASS(
     TILazy,
     TILazy,
-    utl::type_traits::Identity,
     utl::init::TypeInfo::LAZY
 )
 
 TYPE_INFO_CLASS(
     TIStatic,
     TIStatic,
-    utl::type_traits::Identity,
     utl::init::TypeInfo::STATIC
 )
 
-TYPE_INFO_CLASS(
-    TIDecay,
-    TIDecay,
-    std::decay_t
-)
-
 } // namespace
+
 
 TEST(regular) {
     std::set<unsigned int> types = {
@@ -98,20 +91,4 @@ TEST(static_initialization) {
     ASSERT(types.size() == 4)
 
     ASSERT(TIStatic::get_count() == 4)
-}
-
-TEST(decay) {
-    std::set<unsigned int> indices {
-        TIDecay::get<long>().get_index(),
-        TIDecay::get<long>().get_index(),
-        TIDecay::get<const long>().get_index(),
-        TIDecay::get<bool>().get_index(),
-        TIDecay::get<bool>().get_index(),
-        TIDecay::get<const bool>().get_index(),
-        TIDecay::get<volatile bool &>().get_index(),
-        TIDecay::get<volatile long &>().get_index()
-    };
-    ASSERT(indices.size() == 2)
-
-    ASSERT(TIDecay::get_count() == 2)
 }

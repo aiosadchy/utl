@@ -1,5 +1,5 @@
-#ifndef UTL_STRING_LITERAL_TEMPLATE_HPP
-#define UTL_STRING_LITERAL_TEMPLATE_HPP
+#ifndef UTL_STRING_LITERAL_HPP
+#define UTL_STRING_LITERAL_HPP
 
 #include <cstddef>
 #include <iterator>
@@ -55,7 +55,7 @@ using TruncatedStringLiteral = decltype(
     (                                                       \
         (index) < std::size(string_literal)                 \
         ? (string_literal)[index]                           \
-        : decltype(*(string_literal)){0}                    \
+        : std::decay_t<decltype(*(string_literal))>{0}      \
     )
 
 #define UTL_DETAIL_UNWRAP_STRING_4(string_literal, index)           \
@@ -77,11 +77,12 @@ using TruncatedStringLiteral = decltype(
     UTL_DETAIL_UNWRAP_STRING_16(string_literal, (index) + 16 * 3)
 
 // TODO: [maybe] add hash for longer strings
-#define UTL_DETAIL_UNWRAP_STRING(string_literal) \
-    UTL_DETAIL_UNWRAP_STRING_64(string_literal, 0), decltype(*(string_literal)){0}
+#define UTL_DETAIL_UNWRAP_STRING(string_literal)    \
+    UTL_DETAIL_UNWRAP_STRING_64(string_literal, 0), \
+    std::decay_t<decltype(*(string_literal))>{0}
 
 
-#define UTL_STRING_LITERAL_TYPE(string_literal)     \
+#define UTL_STRING_LITERAL_CLASS(string_literal)    \
     utl::detail::TruncatedStringLiteral<            \
         std::decay_t<decltype(*(string_literal))>,  \
         UTL_DETAIL_UNWRAP_STRING(string_literal)    \
@@ -89,12 +90,12 @@ using TruncatedStringLiteral = decltype(
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define STRING_LITERAL_TYPE(string_literal)         \
-        utl::detail::TruncatedStringLiteral<            \
-            std::decay_t<decltype(*(string_literal))>,  \
-            UTL_DETAIL_UNWRAP_STRING(string_literal)    \
-        >
+#define STRING_LITERAL_CLASS(string_literal)        \
+    utl::detail::TruncatedStringLiteral<            \
+        std::decay_t<decltype(*(string_literal))>,  \
+        UTL_DETAIL_UNWRAP_STRING(string_literal)    \
+    >
 
 #endif
 
-#endif // UTL_STRING_LITERAL_TEMPLATE_HPP
+#endif // UTL_STRING_LITERAL_HPP

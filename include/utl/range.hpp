@@ -45,7 +45,7 @@ public:
     };
 
     explicit Range(Value length)
-        : Range(Value{0}, length, Value{1}) {
+        : Range{Value{0}, length, Value{1}} {
     }
 
     Range(Value begin, Value end, Value step = Value{1})
@@ -71,12 +71,12 @@ private:
 
 template <typename TValue>
 Range<TValue> range(TValue length) {
-    return Range(length);
+    return Range{length};
 }
 
 template <typename TValue>
 Range<TValue> range(TValue begin, TValue end, TValue step = TValue{1}) {
-    return Range(begin, end, step);
+    return Range{begin, end, step};
 }
 
 } // namespace utl

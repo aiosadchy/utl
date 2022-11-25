@@ -1,12 +1,13 @@
 #include <utl/timer.hpp>
 
+#include <chrono>
+#include <thread>
+
 #include "test.hpp"
 
 
 TEST(timer) {
     using Timer = utl::Timer<std::chrono::high_resolution_clock>;
-
-    constexpr int ITERATIONS = 100000;
 
     Timer t;
 
@@ -14,11 +15,7 @@ TEST(timer) {
 
     ASSERT(d0.to_nanoseconds() == 0)
 
-    volatile int i;
-
-    for (i = 0; i < ITERATIONS; ++i) {
-        d0 = t.get_time();
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds{10});
 
     Timer::Duration d1 = t.get_time();
 

@@ -8,9 +8,9 @@
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define DEFAULT_MOVABLE(Type)                           \
-        Type(Type &&another) noexcept = default;            \
-        Type &operator=(Type &&another) noexcept = default;
+#define DEFAULT_MOVABLE(Type)                           \
+    Type(Type &&another) noexcept = default;            \
+    Type &operator=(Type &&another) noexcept = default;
 
 #endif
 

@@ -15,13 +15,6 @@ TEST(identity) {
     ASSERT(!std::is_same_v<int, utl::type_traits::Identity<double>>)
 }
 
-TEST(decay) {
-    ASSERT(std::is_same_v<int, utl::type_traits::Decay<int>>)
-    ASSERT(std::is_same_v<int, utl::type_traits::Decay<int &&>>)
-    ASSERT(std::is_same_v<int, utl::type_traits::Decay<const int>>)
-    ASSERT(std::is_same_v<int, utl::type_traits::Decay<const volatile int &>>)
-}
-
 TEST(pack) {
     ASSERT(utl::type_traits::Pack<int, float, bool>::SIZE == 3)
     ASSERT(std::is_same_v<int,   utl::type_traits::Pack<int, float, bool>::Element<0>>)

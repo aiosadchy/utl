@@ -38,9 +38,6 @@ struct IsSpecialization<Template<Args...>, Template> : std::true_type {};
 template <typename T>
 using Identity = T;
 
-template <typename T>
-using Decay = std::decay_t<T>;
-
 template <typename... Types>
 struct Pack {
     template <int I>
