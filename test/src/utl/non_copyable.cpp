@@ -1,19 +1,16 @@
-#include <utl/non_copyable.hpp>
-
 #include <type_traits>
 
-#include "test.hpp"
+#include <utl/non_copyable.hpp>
 
+#include "test.hpp"
 
 namespace {
 
 class Copyable {
-
 };
 
 class NonCopyable {
     UTL_NON_COPYABLE(NonCopyable)
-
 };
 
 } // namespace

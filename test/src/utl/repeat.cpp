@@ -2,7 +2,6 @@
 
 #include "test.hpp"
 
-
 TEST(regular) {
     int i = 0;
     UTL_REPEAT(10) {

@@ -46,7 +46,6 @@ public:
 
     private:
         typename Clock::duration m_duration;
-
     };
 
     Timer()
@@ -65,7 +64,6 @@ public:
 
 private:
     typename Clock::time_point m_time_point;
-
 };
 
 } // namespace utl

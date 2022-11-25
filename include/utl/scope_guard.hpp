@@ -29,15 +29,14 @@ public:
 
 private:
     std::decay_t<TFunction> m_function;
-    int m_uncaught_exceptions;
-
+    int                     m_uncaught_exceptions;
 };
 
 template <typename TFunction>
 class ScopeExit : public ScopeGuard<true, true, TFunction> {
 public:
     ScopeExit(TFunction &&f)
-        : ScopeGuard<true, true, TFunction>(std::forward<TFunction>(f)) {
+        : ScopeGuard<true, true, TFunction>{std::forward<TFunction>(f)} {
     }
 };
 
@@ -45,7 +44,7 @@ template <typename TFunction>
 class ScopeSuccess : public ScopeGuard<true, false, TFunction> {
 public:
     ScopeSuccess(TFunction &&f)
-        : ScopeGuard<true, false, TFunction>(std::forward<TFunction>(f)) {
+        : ScopeGuard<true, false, TFunction>{std::forward<TFunction>(f)} {
     }
 };
 
@@ -53,12 +52,11 @@ template <typename TFunction>
 class ScopeFail : public ScopeGuard<false, true, TFunction> {
 public:
     ScopeFail(TFunction &&f)
-        : ScopeGuard<false, true, TFunction>(std::forward<TFunction>(f)) {
+        : ScopeGuard<false, true, TFunction>{std::forward<TFunction>(f)} {
     }
 };
 
 } // namespace utl
-
 
 #define UTL_SCOPE_EXIT \
     [[maybe_unused]] utl::ScopeExit UTL_UNIQUE_IDENTIFIER = [&]()
@@ -72,14 +70,14 @@ public:
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define SCOPE_EXIT \
-        [[maybe_unused]] utl::ScopeExit UTL_UNIQUE_IDENTIFIER = [&]()
+#define SCOPE_EXIT \
+    [[maybe_unused]] utl::ScopeExit UTL_UNIQUE_IDENTIFIER = [&]()
 
-    #define SCOPE_SUCCESS \
-        [[maybe_unused]] utl::ScopeSuccess UTL_UNIQUE_IDENTIFIER = [&]()
+#define SCOPE_SUCCESS \
+    [[maybe_unused]] utl::ScopeSuccess UTL_UNIQUE_IDENTIFIER = [&]()
 
-    #define SCOPE_FAIL \
-        [[maybe_unused]] utl::ScopeFail UTL_UNIQUE_IDENTIFIER = [&]()
+#define SCOPE_FAIL \
+    [[maybe_unused]] utl::ScopeFail UTL_UNIQUE_IDENTIFIER = [&]()
 
 #endif
 
