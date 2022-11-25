@@ -86,7 +86,6 @@ if (UTL_BUILD_TESTS)
         test/src/utl/range.cpp
         test/src/utl/repeat.cpp
         test/src/utl/scope_guard.cpp
-        test/src/utl/serialize.cpp
         test/src/utl/static_block.cpp
         test/src/utl/string_literal.cpp
         test/src/utl/timer.cpp
