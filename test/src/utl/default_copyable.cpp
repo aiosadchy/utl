@@ -1,27 +1,26 @@
-#include <utl/default_copyable.hpp>
-
 #include <type_traits>
 
-#include "test.hpp"
+#include <utl/default_copyable.hpp>
 
+#include "test.hpp"
 
 namespace {
 
 class NonCopyable {
 public:
-    NonCopyable(NonCopyable &&) noexcept {}
-
+    NonCopyable(NonCopyable &&) noexcept {
+    }
 };
 
 class Copyable {
 public:
-    Copyable(Copyable &&) noexcept {}
+    Copyable(Copyable &&) noexcept {
+    }
 
     UTL_DEFAULT_COPYABLE(Copyable)
-
 };
 
-}
+} // namespace
 
 TEST(default_copyable) {
     ASSERT(!std::is_copy_constructible_v<NonCopyable>)
@@ -30,5 +29,3 @@ TEST(default_copyable) {
     ASSERT(std::is_copy_constructible_v<Copyable>)
     ASSERT(std::is_copy_assignable_v<Copyable>)
 }
-
-TEST_MAIN

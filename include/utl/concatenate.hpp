@@ -2,7 +2,7 @@
 #define UTL_CONCATENATE_HPP
 
 #define UTL_CONCATENATE_WITHOUT_EXPANSION(x, y) \
-    x ## y
+    x##y
 
 #define UTL_CONCATENATE(x, y) \
     UTL_CONCATENATE_WITHOUT_EXPANSION(x, y)
@@ -10,11 +10,11 @@
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #define CONCATENATE_WITHOUT_EXPANSION(x, y) \
-        x ## y
+#define CONCATENATE_WITHOUT_EXPANSION(x, y) \
+    x##y
 
-    #define CONCATENATE(x, y) \
-        UTL_CONCATENATE_WITHOUT_EXPANSION(x, y)
+#define CONCATENATE(x, y) \
+    UTL_CONCATENATE_WITHOUT_EXPANSION(x, y)
 
 #endif
 

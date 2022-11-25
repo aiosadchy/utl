@@ -2,7 +2,6 @@
 
 #include "test.hpp"
 
-
 TEST(regular) {
     int i = 0;
     UTL_REPEAT(10) {
@@ -26,5 +25,3 @@ TEST(negative_counter) {
     }
     ASSERT(value)
 }
-
-TEST_MAIN

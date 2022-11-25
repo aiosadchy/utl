@@ -7,25 +7,19 @@ namespace utl {
 
 namespace init {
 
-    enum class TypeInfo {
-        LAZY,
-        STATIC
-    };
+enum class TypeInfo {
+    LAZY,
+    STATIC
+};
 
 } // namespace init
 
-
 template <
-        typename TData,
-        template <typename> typename TDecay = utl::type_traits::Identity,
-        init::TypeInfo V_INIT_MODE = init::TypeInfo::LAZY
->
+    typename TData,
+    init::TypeInfo V_INIT_MODE = init::TypeInfo::LAZY>
 class TypeInfo {
 public:
     using Data = TData;
-
-    template <typename T>
-    using Decay = TDecay<T>;
 
     static constexpr init::TypeInfo INIT_MODE = V_INIT_MODE;
 
@@ -34,22 +28,17 @@ public:
 
     template <typename T>
     static Data &get() {
-        if constexpr (type_traits::IS_SAME<T, Decay<T>>) {
-            if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
-                static Data type_data{Initializer<T>()};
-                return type_data;
-            } else {
-                return s_type_data<T>;
-            }
+        if constexpr (INIT_MODE == init::TypeInfo::LAZY) {
+            static Data type_data{Initializer<T>{}};
+            return type_data;
         } else {
-            return get<Decay<T>>();
+            return s_type_data<T>;
         }
     }
 
 private:
     template <typename T>
-    inline static Data s_type_data{Initializer<T>()};
-
+    inline static Data s_type_data{Initializer<T>{}};
 };
 
 } // namespace utl

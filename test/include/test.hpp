@@ -2,10 +2,10 @@
 #define UTL_TEST_HPP
 
 #include <iostream>
-#include <list>
 #include <map>
+#include <stack>
 #include <string>
-
+#include <vector>
 
 class Test {
 public:
@@ -14,60 +14,54 @@ public:
         FAILURE
     };
 
-    using Function = void (Test &);
+    using Function = void();
 
-    explicit Test(std::string name, Function *function = nullptr);
+    inline explicit Test(std::string name, Function *function = nullptr);
 
-    Result operator()();
+    inline Result operator()();
 
-    std::string get_name() const;
-    void fail();
+    inline const std::string &get_name() const;
 
-    static const std::list<std::string> &get_failed_tests();
-    static const std::list<std::string> &get_passed_tests();
+    inline void fail();
 
-    static Result run_all();
-    static void print_report();
+    inline static const std::vector<std::string> &get_failed_tests();
+    inline static const std::vector<std::string> &get_passed_tests();
+
+    inline static Result run_all();
+
+    inline static void print_report();
+
+    inline static Test &get_current_test();
 
 private:
-    static std::map<std::string, Test &> &get_all_tests();
+    inline static std::map<std::string, Test &> &get_all_tests();
+
+    inline static std::stack<Test *> &get_tests_being_run_in_current_thread();
 
     std::string m_name;
-    Function *m_function;
-    bool m_failed;
+    Function   *m_function;
+    bool        m_failed;
 
-    inline static std::list<std::string> s_tests_failed = {};
-    inline static std::list<std::string> s_tests_passed = {};
-
+    inline static std::vector<std::string> s_tests_failed = {};
+    inline static std::vector<std::string> s_tests_passed = {};
 };
 
-
-#define CURRENT_TEST test_current_state
-
-
-#define ASSERT(...)                                         \
-    if (!(__VA_ARGS__)) {                                   \
-        CURRENT_TEST.fail();                                \
-        std::cerr << "Test [" << CURRENT_TEST.get_name()    \
-                  << "], line " << __LINE__                 \
-                  << ": assertion failed: "                 \
-                  << #__VA_ARGS__                           \
-                  << std::endl;                             \
+#define ASSERT(...)                                      \
+    if (!(__VA_ARGS__)) {                                \
+        Test &current_test = Test::get_current_test();   \
+        current_test.fail();                             \
+        std::cerr << "Test [" << current_test.get_name() \
+                  << "], line " << __LINE__              \
+                  << ": assertion failed: "              \
+                  << #__VA_ARGS__                        \
+                  << std::endl;                          \
     }
 
 
-#define TEST(name)                                                  \
-    void execute_test_##name(Test &CURRENT_TEST);                   \
-    inline Test test_##name{#name, execute_test_##name};            \
-    void execute_test_##name([[maybe_unused]] Test &CURRENT_TEST)
-
-
-#define TEST_MAIN                                           \
-    int main(int, char **) {                                \
-        Test::Result result = Test::run_all();              \
-        Test::print_report();                               \
-        return (result == Test::Result::FAILURE) ? 1 : 0;   \
-    }
+#define TEST(name)                                       \
+    static void execute_test_##name();                   \
+    inline Test test_##name{#name, execute_test_##name}; \
+    static void execute_test_##name()
 
 #endif // UTL_TEST_HPP
 

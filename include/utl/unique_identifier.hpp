@@ -4,23 +4,19 @@
 #include "utl/concatenate.hpp"
 
 #if !defined(UTL_DO_NOT_USE_COUNTER_MACRO) && defined(__COUNTER__)
-    #define UTL_UNIQUE_IDENTIFIER \
-        UTL_CONCATENATE(utl_unique_identifier_, __COUNTER__)
+    #define UTL_DETAIL_COUNTER_MACRO __COUNTER__
 #else
-    #define UTL_UNIQUE_IDENTIFIER \
-        UTL_CONCATENATE(utl_unique_identifier_, __LINE__)
+    #define UTL_DETAIL_COUNTER_MACRO __LINE__
 #endif
 
 
+#define UTL_UNIQUE_IDENTIFIER \
+    UTL_CONCATENATE(utl_unique_identifier_, UTL_DETAIL_COUNTER_MACRO)
+
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-    #if !defined(UTL_DO_NOT_USE_COUNTER_MACRO) && defined(__COUNTER__)
-        #define UNIQUE_IDENTIFIER \
-            UTL_CONCATENATE(utl_unique_identifier_, __COUNTER__)
-    #else
-        #define UNIQUE_IDENTIFIER \
-            UTL_CONCATENATE(utl_unique_identifier_, __LINE__)
-    #endif
+#define UNIQUE_IDENTIFIER \
+    UTL_CONCATENATE(utl_unique_identifier_, UTL_DETAIL_COUNTER_MACRO)
 
 #endif
 

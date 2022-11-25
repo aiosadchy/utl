@@ -70,22 +70,26 @@ if (UTL_BUILD_TESTS)
     enable_testing()
 
     set(UTL_TEST_SOURCES
-        test/src/test_default_copyable.cpp
-        test/src/test_default_movable.cpp
-        test/src/test_non_constructible.cpp
-        test/src/test_non_copyable.cpp
-        test/src/test_range.cpp
-        test/src/test_repeat.cpp
-        test/src/test_scope_guard.cpp
-        test/src/test_static_block.cpp
-        test/src/test_type_id.cpp
-        test/src/test_type_info.cpp
-        test/src/test_type_traits.cpp
+        test/src/utl/default_copyable.cpp
+        test/src/utl/default_movable.cpp
+        test/src/utl/hash.cpp
+        test/src/utl/non_constructible.cpp
+        test/src/utl/non_copyable.cpp
+        test/src/utl/range.cpp
+        test/src/utl/repeat.cpp
+        test/src/utl/scope_guard.cpp
+        test/src/utl/static_block.cpp
+        test/src/utl/string_literal.cpp
+        test/src/utl/timer.cpp
+        test/src/utl/type_id.cpp
+        test/src/utl/type_info.cpp
+        test/src/utl/type_traits.cpp
     )
 
     foreach(TEST ${UTL_TEST_SOURCES})
-        get_filename_component(TEST_EXE ${TEST} NAME_WE)
-        add_executable(${TEST_EXE} ${TEST})
+        get_filename_component(TEST_BASE_NAME ${TEST} NAME_WE)
+        set(TEST_EXE test_utl_${TEST_BASE_NAME})
+        add_executable(${TEST_EXE} ${TEST} test/src/main.cpp)
         target_include_directories(${TEST_EXE} PRIVATE test/include)
         target_link_libraries(${TEST_EXE} PRIVATE utl)
 
