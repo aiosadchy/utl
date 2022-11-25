@@ -1,10 +1,22 @@
 ################################################################################
-#                                     utl                                      #
+#                                    setup                                     #
 ################################################################################
 
 cmake_minimum_required (VERSION 3.8)
+
+function(msg level)
+    message(${level} "[utl] " ${ARGN})
+endfunction()
+
+file(READ .version UTL_VERSION)
+string(STRIP "${UTL_VERSION}" UTL_VERSION)
+
+################################################################################
+#                                     utl                                      #
+################################################################################
+
 project(utl
-    VERSION         0.1.0
+    VERSION         "${UTL_VERSION}"
     DESCRIPTION     "A simple general purpose utility library for modern C++"
     HOMEPAGE_URL    "https://github.com/aiosadchy/utl"
 )
@@ -43,10 +55,6 @@ target_compile_features(utl INTERFACE cxx_std_17)
 
 set(UTL_COMPILE_DEFINITIONS)
 
-function(msg level)
-    message(${level} "utl: " ${ARGN})
-endfunction()
-
 if (UTL_NO_UNSCOPED_MACROS)
     set(UTL_COMPILE_DEFINITIONS ${UTL_COMPILE_DEFINITIONS} UTL_NO_UNSCOPED_MACROS)
     msg(STATUS "unscoped macros are disabled")
@@ -78,6 +86,7 @@ if (UTL_BUILD_TESTS)
         test/src/utl/range.cpp
         test/src/utl/repeat.cpp
         test/src/utl/scope_guard.cpp
+        test/src/utl/serialize.cpp
         test/src/utl/static_block.cpp
         test/src/utl/string_literal.cpp
         test/src/utl/timer.cpp
