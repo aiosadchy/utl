@@ -49,6 +49,8 @@ using TruncatedStringLiteral = decltype(
 
 } // namespace utl
 
+// clang-format off
+
 #define UTL_DETAIL_UNWRAP_STRING_1(string_literal, index) \
     ((index) < std::size(string_literal)                  \
          ? (string_literal)[index]                        \
@@ -76,6 +78,8 @@ using TruncatedStringLiteral = decltype(
 #define UTL_DETAIL_UNWRAP_STRING(string_literal)    \
     UTL_DETAIL_UNWRAP_STRING_64(string_literal, 0), \
     (std::decay_t<decltype(*(string_literal))>{0})
+
+// clang-format on
 
 #define UTL_STRING_LITERAL_CLASS(string_literal)   \
     utl::detail::TruncatedStringLiteral<           \
