@@ -1,10 +1,9 @@
-#include <utl/string_literal.hpp>
-
 #include <iterator>
 #include <type_traits>
 
-#include "test.hpp"
+#include <utl/string_literal.hpp>
 
+#include "test.hpp"
 
 TEST(string_literal_template) {
     auto v1 = utl::StringLiteral<char, 'a', 'b', 'c', '\0'>{};
@@ -28,5 +27,4 @@ TEST(string_literal_template) {
     using TEmpty = utl::StringLiteral<char>;
 
     ASSERT(!std::is_same_v<T0, TEmpty>)
-
 }

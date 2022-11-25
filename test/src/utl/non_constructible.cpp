@@ -1,18 +1,16 @@
-#include <utl/non_constructible.hpp>
-
 #include <type_traits>
+
+#include <utl/non_constructible.hpp>
 
 #include "test.hpp"
 
 namespace {
 
 class Constructible {
-
 };
 
 class NonConstructible {
     UTL_NON_CONSTRUCTIBLE(NonConstructible)
-
 };
 
 } // namespace

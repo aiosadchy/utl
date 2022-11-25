@@ -1,10 +1,9 @@
-#include <utl/type_id.hpp>
-
 #include <set>
 #include <type_traits>
 
-#include "test.hpp"
+#include <utl/type_id.hpp>
 
+#include "test.hpp"
 
 namespace {
 
@@ -20,24 +19,21 @@ class FamilyLazy {};
 using TypeIDLazy = utl::TypeID<
     FamilyLazy,
     int,
-    utl::init::TypeID::LAZY
->;
+    utl::init::TypeID::LAZY>;
 
 class FamilyStatic {};
 
 using TypeIDStatic = utl::TypeID<
     FamilyStatic,
     int,
-    utl::init::TypeID::STATIC
->;
+    utl::init::TypeID::STATIC>;
 
 } // namespace
-
 
 TEST(different_families) {
     ASSERT(std::is_same_v<TypeIDA::Index, TypeIDB::Index>)
 
-    std::set<TypeIDA::Index> a {
+    std::set<TypeIDA::Index> a{
         TypeIDA::get<bool>().get_index(),
         TypeIDA::get<char>().get_index(),
         TypeIDA::get<const bool>().get_index(),
@@ -47,7 +43,7 @@ TEST(different_families) {
     };
     ASSERT(a == std::set<TypeIDA::Index>{0, 1, 2})
 
-    std::set<TypeIDB::Index> b {
+    std::set<TypeIDB::Index> b{
         TypeIDB::get<void>().get_index(),
         TypeIDB::get<double>().get_index(),
         TypeIDB::get<const double>().get_index(),
@@ -63,7 +59,7 @@ TEST(different_families) {
 TEST(lazy_initialization) {
     ASSERT(TypeIDLazy::get_types_count() == 0)
 
-    std::set<TypeIDLazy::Index> indices {
+    std::set<TypeIDLazy::Index> indices{
         TypeIDLazy::get<short>().get_index(),
         TypeIDLazy::get<short>().get_index(),
         TypeIDLazy::get<unsigned>().get_index(),
@@ -77,7 +73,7 @@ TEST(lazy_initialization) {
 TEST(static_initialization) {
     ASSERT(TypeIDStatic::get_types_count() == 4)
 
-    std::set<TypeIDStatic::Index> indices {
+    std::set<TypeIDStatic::Index> indices{
         TypeIDStatic::get<void>().get_index(),
         TypeIDStatic::get<void>().get_index(),
         TypeIDStatic::get<bool>().get_index(),

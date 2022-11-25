@@ -1,22 +1,20 @@
-#include <utl/scope_guard.hpp>
-
 #include <stdexcept>
+
+#include <utl/scope_guard.hpp>
 
 #include "test.hpp"
 
-
 namespace {
 
-constexpr int UNCHANGED = 0;
-constexpr int CHANGED_ONCE = 1;
+constexpr int UNCHANGED     = 0;
+constexpr int CHANGED_ONCE  = 1;
 constexpr int CHANGED_TWICE = 2;
-constexpr int INVALID = -1;
+constexpr int INVALID       = -1;
 
 } // namespace
 
-
 TEST(scope_exit) {
-    int regular_flow_value = UNCHANGED;
+    int regular_flow_value   = UNCHANGED;
     int exception_flow_value = UNCHANGED;
 
     UTL_SCOPE_EXIT {
@@ -49,7 +47,7 @@ TEST(scope_exit) {
 }
 
 TEST(scope_success) {
-    int regular_flow_value = UNCHANGED;
+    int regular_flow_value   = UNCHANGED;
     int exception_flow_value = UNCHANGED;
 
     UTL_SCOPE_SUCCESS {
@@ -83,7 +81,7 @@ TEST(scope_success) {
 }
 
 TEST(scope_fail) {
-    int regular_flow_value = UNCHANGED;
+    int regular_flow_value   = UNCHANGED;
     int exception_flow_value = UNCHANGED;
 
     UTL_SCOPE_FAIL {

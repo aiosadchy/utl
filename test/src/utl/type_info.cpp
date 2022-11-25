@@ -1,32 +1,31 @@
-#include <utl/type_info.hpp>
-
 #include <set>
+
+#include <utl/type_info.hpp>
 
 #include "test.hpp"
 
 
-#define TYPE_INFO_CLASS(name, ...)                  \
-class name : public utl::TypeInfo<__VA_ARGS__> {    \
-public:                                             \
-    template <typename T>                           \
-    explicit name(Initializer<T>)                   \
-        : m_index(s_count++) {                      \
-    }                                               \
-                                                    \
-    unsigned int get_index() const {                \
-        return m_index;                             \
-    }                                               \
-                                                    \
-    static unsigned int get_count() {               \
-        return s_count;                             \
-    }                                               \
-                                                    \
-private:                                            \
-    unsigned int m_index;                           \
-                                                    \
-    inline static unsigned int s_count{0};          \
-                                                    \
-};
+#define TYPE_INFO_CLASS(name, ...)                   \
+    class name : public utl::TypeInfo<__VA_ARGS__> { \
+    public:                                          \
+        template <typename T>                        \
+        explicit name(Initializer<T>)                \
+            : m_index(s_count++) {                   \
+        }                                            \
+                                                     \
+        unsigned int get_index() const {             \
+            return m_index;                          \
+        }                                            \
+                                                     \
+        static unsigned int get_count() {            \
+            return s_count;                          \
+        }                                            \
+                                                     \
+    private:                                         \
+        unsigned int m_index;                        \
+                                                     \
+        inline static unsigned int s_count{0};       \
+    };
 
 namespace {
 
@@ -48,7 +47,6 @@ TYPE_INFO_CLASS(
 )
 
 } // namespace
-
 
 TEST(regular) {
     std::set<unsigned int> types = {

@@ -7,7 +7,6 @@
 
 #include <stdexcept>
 
-
 Test::Test(std::string name, Function *function)
     : m_name(std::move(name))
     , m_function(function)

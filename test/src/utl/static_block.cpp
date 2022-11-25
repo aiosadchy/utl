@@ -2,7 +2,6 @@
 
 #include "test.hpp"
 
-
 static bool value_a = false;
 static bool value_b = false;
 static bool value_c = false;

@@ -1,10 +1,9 @@
-#include <utl/timer.hpp>
-
 #include <chrono>
 #include <thread>
 
-#include "test.hpp"
+#include <utl/timer.hpp>
 
+#include "test.hpp"
 
 TEST(timer) {
     using Timer = utl::Timer<std::chrono::high_resolution_clock>;
@@ -20,9 +19,9 @@ TEST(timer) {
     Timer::Duration d1 = t.get_time();
 
     ASSERT(d1.to_nanoseconds() > 0)
-    ASSERT(d1.to_nanoseconds()  / 1000 == d1.to_microseconds())
+    ASSERT(d1.to_nanoseconds() / 1000 == d1.to_microseconds())
     ASSERT(d1.to_microseconds() / 1000 == d1.to_milliseconds())
-    ASSERT(d1.to_milliseconds() / 1000 == d1.to_seconds()     )
+    ASSERT(d1.to_milliseconds() / 1000 == d1.to_seconds())
 
     Timer::Duration d2 = t.restart();
 
