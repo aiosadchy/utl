@@ -29,8 +29,7 @@ public:
 
 private:
     std::decay_t<TFunction> m_function;
-    int m_uncaught_exceptions;
-
+    int                     m_uncaught_exceptions;
 };
 
 template <typename TFunction>
@@ -58,7 +57,6 @@ public:
 };
 
 } // namespace utl
-
 
 #define UTL_SCOPE_EXIT \
     [[maybe_unused]] utl::ScopeExit UTL_UNIQUE_IDENTIFIER = [&]()

@@ -7,18 +7,16 @@ namespace utl {
 
 namespace init {
 
-    enum class TypeInfo {
-        LAZY,
-        STATIC
-    };
+enum class TypeInfo {
+    LAZY,
+    STATIC
+};
 
 } // namespace init
 
-
 template <
-        typename TData,
-        init::TypeInfo V_INIT_MODE = init::TypeInfo::LAZY
->
+    typename TData,
+    init::TypeInfo V_INIT_MODE = init::TypeInfo::LAZY>
 class TypeInfo {
 public:
     using Data = TData;
@@ -41,7 +39,6 @@ public:
 private:
     template <typename T>
     inline static Data s_type_data{Initializer<T>{}};
-
 };
 
 } // namespace utl

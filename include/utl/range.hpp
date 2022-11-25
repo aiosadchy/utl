@@ -41,7 +41,6 @@ public:
         Value m_value;
         Value m_end;
         Value m_step;
-
     };
 
     explicit Range(Value length)
@@ -66,7 +65,6 @@ private:
     Value m_begin;
     Value m_end;
     Value m_step;
-
 };
 
 template <typename TValue>

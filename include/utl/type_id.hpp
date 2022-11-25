@@ -7,19 +7,17 @@ namespace utl {
 
 namespace init {
 
-    enum class TypeID {
-        LAZY,
-        STATIC
-    };
+enum class TypeID {
+    LAZY,
+    STATIC
+};
 
 } // namespace init
 
-
 template <
-        typename TFamily,
-        typename TIndex = unsigned short int,
-        init::TypeID V_INIT_MODE = init::TypeID::LAZY
->
+    typename TFamily,
+    typename TIndex          = unsigned short int,
+    init::TypeID V_INIT_MODE = init::TypeID::LAZY>
 class TypeID {
 public:
     using Family [[maybe_unused]] = TFamily;
@@ -69,7 +67,6 @@ private:
 
     template <typename T>
     inline static const Index s_type_index{s_registered_types++};
-
 };
 
 } // namespace utl

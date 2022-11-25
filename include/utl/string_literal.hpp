@@ -15,15 +15,14 @@ public:
 
 public:
     static constexpr Character VALUE[sizeof...(V_CHARACTERS)] = {V_CHARACTERS...};
-
 };
-
 
 namespace detail {
 
 template <typename TCharacter, TCharacter... V_CHARACTERS>
 constexpr std::size_t string_literal_size() {
     constexpr TCharacter string[] = {V_CHARACTERS...};
+
     std::size_t size = 0;
     for (std::size_t i = 0; i < sizeof...(V_CHARACTERS); ++i) {
         if (string[i] != TCharacter{0}) {
@@ -50,13 +49,10 @@ using TruncatedStringLiteral = decltype(
 
 } // namespace utl
 
-
-#define UTL_DETAIL_UNWRAP_STRING_1(string_literal, index)   \
-    (                                                       \
-        (index) < std::size(string_literal)                 \
-        ? (string_literal)[index]                           \
-        : std::decay_t<decltype(*(string_literal))>{0}      \
-    )
+#define UTL_DETAIL_UNWRAP_STRING_1(string_literal, index) \
+    ((index) < std::size(string_literal)                  \
+         ? (string_literal)[index]                        \
+         : std::decay_t<decltype(*(string_literal))>{0})
 
 #define UTL_DETAIL_UNWRAP_STRING_4(string_literal, index)           \
     UTL_DETAIL_UNWRAP_STRING_1(string_literal, (index) + 1 * 0),    \
@@ -79,22 +75,19 @@ using TruncatedStringLiteral = decltype(
 // TODO: [maybe] add hash for longer strings
 #define UTL_DETAIL_UNWRAP_STRING(string_literal)    \
     UTL_DETAIL_UNWRAP_STRING_64(string_literal, 0), \
-    std::decay_t<decltype(*(string_literal))>{0}
+    (std::decay_t<decltype(*(string_literal))>{0})
 
-
-#define UTL_STRING_LITERAL_CLASS(string_literal)    \
-    utl::detail::TruncatedStringLiteral<            \
-        std::decay_t<decltype(*(string_literal))>,  \
-        UTL_DETAIL_UNWRAP_STRING(string_literal)    \
-    >
+#define UTL_STRING_LITERAL_CLASS(string_literal)   \
+    utl::detail::TruncatedStringLiteral<           \
+        std::decay_t<decltype(*(string_literal))>, \
+        UTL_DETAIL_UNWRAP_STRING(string_literal)>
 
 #ifndef UTL_NO_UNSCOPED_MACROS
 
-#define STRING_LITERAL_CLASS(string_literal)        \
-    utl::detail::TruncatedStringLiteral<            \
-        std::decay_t<decltype(*(string_literal))>,  \
-        UTL_DETAIL_UNWRAP_STRING(string_literal)    \
-    >
+#define STRING_LITERAL_CLASS(string_literal)       \
+    utl::detail::TruncatedStringLiteral<           \
+        std::decay_t<decltype(*(string_literal))>, \
+        UTL_DETAIL_UNWRAP_STRING(string_literal)>
 
 #endif
 

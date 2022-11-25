@@ -31,19 +31,17 @@ constexpr std::uint64_t hash64(std::uint64_t x) {
 
 } // namespace integer_hash
 
-
 template <
     template <typename> typename THash = std::hash,
     typename TFirst,
-    typename... TRest
->
+    typename... TRest>
 constexpr std::size_t hash(TFirst &&first, TRest &&...rest) {
     std::size_t result = THash<std::decay_t<TFirst>>{}(std::forward<TFirst>(first));
     if constexpr (sizeof...(TRest) > 0) {
         result ^= hash<THash>(std::forward<TRest>(rest)...)
-            + std::size_t{UINTMAX_C(0x9e3779b9)}
-            + (result << std::size_t{6})
-            + (result >> std::size_t{2});
+                + std::size_t{UINTMAX_C(0x9e3779b9)}
+                + (result << std::size_t{6})
+                + (result >> std::size_t{2});
     }
     return result;
 }

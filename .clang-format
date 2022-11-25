@@ -3,7 +3,7 @@ AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: Left
 AlignConsecutiveAssignments: true
 AlignConsecutiveBitFields: true
-AlignConsecutiveDeclarations: false
+AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
@@ -32,11 +32,11 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
-ColumnLimit: 80
+ColumnLimit: 0
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 8
+ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DeriveLineEnding: true
 DerivePointerAlignment: false
@@ -75,7 +75,7 @@ PenaltyBreakFirstLessLess: 0
 PenaltyBreakOpenParenthesis: 0
 PenaltyBreakString: 400
 PenaltyBreakTemplateDeclaration: 0
-PenaltyExcessCharacter: 20
+PenaltyExcessCharacter: 10
 PenaltyIndentedWhitespace: 0
 PenaltyReturnTypeOnItsOwnLine: 400
 PointerAlignment: Right
