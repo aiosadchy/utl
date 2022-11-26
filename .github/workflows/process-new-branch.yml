@@ -1,0 +1,79 @@
+name: Process New Branch
+
+on:
+  create:
+    branches-ignore:
+      - 'junk/*'
+
+jobs:
+  process-new-branch:
+    runs-on: ubuntu-latest
+
+    env:
+      MASTER_BRANCH: '${{ github.event.repository.default_branch }}'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Update Project Version
+        if: ${{ startsWith(github.ref_name, 'release/') }}
+        run: |
+          echo '${{ github.ref_name }}'                   \
+          | grep -o 'v\([0-9]\+\.\)\{1,3\}\([0-9]\+\)\?$' \
+          | cut -c 2-                                     \
+          > .version.new
+          if [ -s .version.new ]; then
+            mv .version.new .version
+            git config --global user.name '${{ github.actor }}'
+            git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+            git add .version
+            git commit -m "[auto] Update .version for a new release branch."
+            git push
+          fi
+
+      - name: Find Latest Release Branch
+        id: latest-release
+        run: |
+          git for-each-ref                          \
+              --format="%(refname:short)"           \
+              --no-merged="origin/${MASTER_BRANCH}" \
+              'refs/remotes/origin/release/'        \
+          | sort --version-sort --reverse           \
+          | ( cut -c 8- ; echo "${MASTER_BRANCH}" ) \
+          | ( echo -n "NAME=" ; head -n 1 )         \
+          >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const head = '${{ github.ref_name }}';
+            const is_release_pr = head.toLowerCase().startsWith('release/');
+            const base = is_release_pr
+                       ? '${{ github.event.repository.default_branch }}'
+                       : '${{ steps.latest-release.outputs.NAME }}';
+
+            core.info('Attempting to create pull request.');
+            core.info('Head branch is: ' + String(head));
+            core.info('Base branch is: ' + String(base));
+
+            try {
+              const result = await github.rest.pulls.create({
+                owner,
+                repo,
+                title:  head,
+                head:   head,
+                base:   base,
+                draft:  is_release_pr
+              });
+              core.info('Success!');
+            } catch(error) {
+              if (error.message.toLowerCase().search('already exists') == -1) {
+                throw error;
+              }
+              core.info('Such pull request already exists.');
+            }
