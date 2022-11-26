@@ -1,4 +1,4 @@
-name: CMake
+name: Build And Test
 
 on:
   push:
@@ -33,12 +33,6 @@ jobs:
       shell: bash
       run: cmake --build . --config $BUILD_TYPE
 
-  test:
-    runs-on: ubuntu-latest
-
-    needs: build
-
-    steps:
     - name: Test
       working-directory: ${{github.workspace}}/build
       shell: bash
